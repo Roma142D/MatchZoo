@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf57d4a2f571d043858e1cc33002f5e, type: 3}
+  m_Name: LevelData30
+  m_EditorClassIdentifier: 
+  levelType: 1
+  _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
+  _boardSize: {x: 7, y: 7}
+  timeToComplet:
+    TimerStartingTime: 20
+    TwoStars: 120
+    ThreeStars: 30
+  _tilesToDisable:
+    rows: 7
+    columns: 7
+    values: 01010000000101010000000000010000000100000000000101010000000000010000000100000000000101010000000101
+  tilesTypes:
+  - {fileID: 11400000, guid: e9aa0ef239d5040469fcb06438de51e7, type: 2}
+  - {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
+  - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
+  - {fileID: 11400000, guid: eccef0273e4a5df42be4fc716cb5c5fc, type: 2}
+  - {fileID: 11400000, guid: 38350310bb850754199929fcf4d43373, type: 2}
+  - {fileID: 11400000, guid: 29eb9af04443a9346a5810dc6e0a29e9, type: 2}
+  - {fileID: 11400000, guid: 3a66d9c2d4d6bab44bc2952171a002c9, type: 2}
+  scoreToBeet: 35
+  tilesToCollect:
+  - TileType: {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
+    AmountToCollect: 48
+  - TileType: {fileID: 11400000, guid: eccef0273e4a5df42be4fc716cb5c5fc, type: 2}
+    AmountToCollect: 48
+  - TileType: {fileID: 11400000, guid: 3a66d9c2d4d6bab44bc2952171a002c9, type: 2}
+    AmountToCollect: 48
+  - TileType: {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
+    AmountToCollect: 48

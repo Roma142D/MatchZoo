@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AnimalsSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 36a09e5ce556e184b8bc49595499353e, type: 3}
+    - {fileID: 2800000, guid: 2190dd48d7af1724684b882569ef2ffa, type: 3}
+    - {fileID: 2800000, guid: 91a475d2a73b7cd4cb70c1860be7b112, type: 3}
+    - {fileID: 2800000, guid: 72e78a080154f0d49b0954fbe08bb4da, type: 3}
+    - {fileID: 2800000, guid: 3ad209ad7f6e18e4eb34cff36d68c990, type: 3}
+    - {fileID: 2800000, guid: 2d31732221068a64aa97e0fe701c0f90, type: 3}
+    - {fileID: 2800000, guid: 5d9c4fef24a8a784fb64dbeb489e5356, type: 3}
+    - {fileID: 2800000, guid: 2da18e28014e0a6429422972c037b2c1, type: 3}
+    - {fileID: 2800000, guid: 4186cf1d1df57a74f9fcacd647afc8c4, type: 3}
+    - {fileID: 2800000, guid: 081235cd7f603d44d99653358ed4f750, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 2d31732221068a64aa97e0fe701c0f90: 21300000
+    - 91a475d2a73b7cd4cb70c1860be7b112: 21300000
+    - 72e78a080154f0d49b0954fbe08bb4da: 21300000
+    - 2da18e28014e0a6429422972c037b2c1: 21300000
+    - 2190dd48d7af1724684b882569ef2ffa: 21300000
+    - 36a09e5ce556e184b8bc49595499353e: 21300000
+    - 4186cf1d1df57a74f9fcacd647afc8c4: 21300000
+    - 3ad209ad7f6e18e4eb34cff36d68c990: 21300000
+    - 081235cd7f603d44d99653358ed4f750: 21300000
+    - 5d9c4fef24a8a784fb64dbeb489e5356: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 2d31732221068a64aa97e0fe701c0f90, type: 3}
+  - {fileID: 21300000, guid: 91a475d2a73b7cd4cb70c1860be7b112, type: 3}
+  - {fileID: 21300000, guid: 72e78a080154f0d49b0954fbe08bb4da, type: 3}
+  - {fileID: 21300000, guid: 2da18e28014e0a6429422972c037b2c1, type: 3}
+  - {fileID: 21300000, guid: 2190dd48d7af1724684b882569ef2ffa, type: 3}
+  - {fileID: 21300000, guid: 36a09e5ce556e184b8bc49595499353e, type: 3}
+  - {fileID: 21300000, guid: 4186cf1d1df57a74f9fcacd647afc8c4, type: 3}
+  - {fileID: 21300000, guid: 3ad209ad7f6e18e4eb34cff36d68c990, type: 3}
+  - {fileID: 21300000, guid: 081235cd7f603d44d99653358ed4f750, type: 3}
+  - {fileID: 21300000, guid: 5d9c4fef24a8a784fb64dbeb489e5356, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - parrot
+  - hippo
+  - monkey
+  - pig
+  - giraffe
+  - elephant
+  - rabbit
+  - panda
+  - snake
+  - penguin
+  m_RenderDataMap: {}
+  m_Tag: AnimalsSpriteAtlas
+  m_IsVariant: 0
