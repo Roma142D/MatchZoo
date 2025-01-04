@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
@@ -50,7 +51,7 @@ namespace MatchThreeEngine
 		private float _totalTime;
 		public float TotalScore {get; private set;}
 		
-		public event Action<Item[]> OnMatch;
+		public event Action<Tile[]> OnMatch;
 		public static Action<float> OnGameOver;
         public static Action<LevelData> OnLevelComplet;
 
@@ -174,9 +175,9 @@ namespace MatchThreeEngine
 				yield return wait;
 			}
 		}
-		private void IncreaseScore(Item[] matchedTiles)
+		private void IncreaseScore(Tile[] matchedTiles)
 		{	
-			var tilesValue = matchedTiles.Select(tile => tile.Value).ToArray().Sum();
+			var tilesValue = matchedTiles.Select(tile => tile.Type.Value).ToArray().Sum();
 			
 			Debug.Log(tilesValue);
 			_slider.value = _currentScore += tilesValue * _scoreMultiplier;
@@ -222,16 +223,22 @@ namespace MatchThreeEngine
 			_checkScoreRoutine = null;
 		}
 
-		private void CheckCollectedTiles(Item[] matchedTiles)
+		private void CheckCollectedTiles(Tile[] matchedTiles)
 		{
 			for (int i = 0; i < _currentTilesToCollect.Count; i++)
 			{
 				var tile = _currentTilesToCollect[i];
-				var fittingTiles = matchedTiles.Count(matchedTile => matchedTile.id == tile.TileType.id);
+				var fittingTiles = matchedTiles.Where(matchedTile => matchedTile.Type.id == tile.TileType.id)
+												.Select(matchedTile => matchedTile.icon).ToArray();
 
-				tile.AmountToCollect -= fittingTiles;
+				List<Image> images = new List<Image>();
+				images.AddRange(fittingTiles);
+				tile.AmountToCollect -= fittingTiles.Count();
 				_currentTilesToCollect[i] = tile;
 				UIManager.Instance.CollectTile(i, tile.AmountToCollect);
+
+				var endPosition = UIManager.Instance.tilesToCollectUI[i].TileIcon.rectTransform.position;
+				CollectAnimation(images, endPosition);
 			}
 			if (_currentTilesToCollect.All(tile => tile.AmountToCollect <= 0))
 			{
@@ -255,6 +262,29 @@ namespace MatchThreeEngine
 				}
 			}
 			*/
+		}
+		private async void CollectAnimation(List<Image> tiles, Vector3 endPosition)
+		{
+			var moveSequence = DOTween.Sequence();
+			List<RectTransform> icons = new List<RectTransform>();
+			
+			foreach (var fitTile in tiles)
+			{
+				//var icon = fitTile.rectTransform;
+				var icon = Instantiate(fitTile.rectTransform, fitTile.rectTransform);
+				icons.Add(icon);
+				var startPos = fitTile.rectTransform.position;
+				moveSequence.Join(icon.DOMove(endPosition, tweenDuration));	
+				//moveBackSequence.Join(icon.DOMove(startPos, 0.5f));	
+			}
+			await moveSequence.Play().AsyncWaitForCompletion();
+			foreach (var icon in icons)
+			{
+				Destroy(icon.gameObject);
+			}
+			icons.Clear();
+			
+			//await moveBackSequence.Play().AsyncWaitForCompletion();
 		}
 
 		private void TimerCooldown()
@@ -281,7 +311,7 @@ namespace MatchThreeEngine
 
 			return tiles;
 		}
-
+		
 		private async void Select(Tile tile)
 		{
 			var goToOrigin = DOTween.Sequence();
@@ -392,10 +422,11 @@ namespace MatchThreeEngine
 
 			var match = explosion != null ? explosion : TileDataMatrixUtility.FindBestMatch(Matrix);
 
-			var matchedTiles = new List<Item>();
+			//List<Tile> matchedTiles;
 
 			while (match != null)
 			{
+				var matchedTiles = new List<Tile>();
 				didMatch = true;
 
 				var tiles = GetTiles(match.Tiles);
@@ -405,14 +436,16 @@ namespace MatchThreeEngine
 				foreach (var tile in tiles)
 				{
 					deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, tweenDuration).SetEase(Ease.InBack));
-					matchedTiles.Add(tile.Type);
+					matchedTiles.Add(tile);
 				}
 
 				audioSource.PlayOneShot(matchSound);
+				
+				OnMatch?.Invoke(matchedTiles.ToArray());
 
 				await deflateSequence.Play()
 				                     .AsyncWaitForCompletion();
-
+						
 				var inflateSequence = DOTween.Sequence();
 
 				for (int i = 0; i < tiles.Length; i++)
@@ -438,8 +471,9 @@ namespace MatchThreeEngine
 
 
 				match = TileDataMatrixUtility.FindBestMatch(Matrix);
+				
+				
 			}
-			OnMatch?.Invoke(matchedTiles.ToArray());
 
 			_isMatching = false;
 

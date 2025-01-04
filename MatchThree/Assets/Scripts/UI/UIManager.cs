@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MatchThreeEngine;
 using TMPro;
 using UnityEngine;
@@ -12,14 +13,17 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance {get; private set;}
+        [SerializeField] private float _musicTimer;
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
-        public List<TilesToCollectUI> tilesToCollectUI;
+        [SerializeField] private BackgroundMusic _backgroundMusic;
         public TipButton tipButton;
         public InGameData inGameData;
+        public List<TilesToCollectUI> tilesToCollectUI;
         public bool Pause {get; set;}
         public Coroutine TimerCoroutine;
-        
+        private float _currentMusicTimer;
+            
 
         private void Awake()
         {
@@ -33,6 +37,29 @@ namespace UI
             }
 
             SetTipsAmount();
+            _currentMusicTimer = _musicTimer;
+        }
+        private void Update()
+        {
+            _currentMusicTimer -= Time.deltaTime;
+            if (_currentMusicTimer <= 0)
+            {
+                _currentMusicTimer = _musicTimer;
+                StartCoroutine(PlayRandomAudio());
+            }
+        }
+        private IEnumerator PlayRandomAudio()
+        {
+            if (_backgroundMusic.AudioSource.clip != null)
+            {
+                yield return new WaitUntil(() => _backgroundMusic.AudioSource.time >= _backgroundMusic.AudioSource.clip.length - 0.5f);
+                _backgroundMusic.AudioSource.clip = _backgroundMusic.AudioClips[UnityEngine.Random.Range(0, _backgroundMusic.AudioClips.Length)];
+            }
+            else
+            {
+                _backgroundMusic.AudioSource.clip = _backgroundMusic.AudioClips[UnityEngine.Random.Range(0, _backgroundMusic.AudioClips.Length)];
+            }
+            _backgroundMusic.AudioSource.Play();
         }
 
         public void SetTipsAmount()
@@ -175,5 +202,11 @@ namespace UI
 			public Image TileIcon;
             public TextMeshProUGUI TilesAmount;
 		}
+        [Serializable]
+        public struct BackgroundMusic
+        {
+            public AudioSource AudioSource;
+            public AudioClip[] AudioClips;     
+        }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57d266c358916544812d4ccdd89a5d2, type: 3}
   m_Name: HorizontalExplosion
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: c5cd5eecbc0195c4e890548eb7319776, type: 3}
+  _sprite: {fileID: 21300000, guid: 5b821a81c126b774a818db014459ef61, type: 3}
   _value: 1
   tileType: 2
   id: 102
