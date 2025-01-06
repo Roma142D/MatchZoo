@@ -17,8 +17,8 @@ MonoBehaviour:
   _boardSize: {x: 6, y: 7}
   timeToComplet:
     TimerStartingTime: 25
-    TwoStars: 120
-    ThreeStars: 50
+    TwoStars: 90
+    ThreeStars: 60
   _tilesToDisable:
     rows: 7
     columns: 6
@@ -28,7 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
   - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
   - {fileID: 11400000, guid: eccef0273e4a5df42be4fc716cb5c5fc, type: 2}
-  scoreToBeet: 25
+  scoreToBeet: 0
   tilesToCollect:
   - TileType: {fileID: 11400000, guid: e9aa0ef239d5040469fcb06438de51e7, type: 2}
     AmountToCollect: 48
