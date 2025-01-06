@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Parrot
   m_EditorClassIdentifier: 
   _sprite: {fileID: 1275255096, guid: 9711382bc7a13cf49be7d4d5aedc8e00, type: 3}
-  _value: 0.6
+  _value: 0.7
   tileType: 0
   id: 6

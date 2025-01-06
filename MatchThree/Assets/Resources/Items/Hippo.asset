@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Hippo
   m_EditorClassIdentifier: 
   _sprite: {fileID: -1625836100, guid: 9711382bc7a13cf49be7d4d5aedc8e00, type: 3}
-  _value: 0.6
+  _value: 0.8
   tileType: 0
   id: 3

@@ -102,27 +102,27 @@ namespace UI
             PlayerPrefs.Save();
             ChangeScene(GlobalData.IN_GAME_SCENE);
         }
-        public IEnumerator UITimerCorutine(float timeOnTwoStars)
+        public IEnumerator UITimerCorutine(float timeOnTwoStars, float timeOnThreeStars)
         {
-            inGameData.TimerImage.fillAmount = 0.5f;
-
-            var currentTime = 0f;
-            var deltaTime = 0f;
-            var endTime = 1f;
-            while (deltaTime != timeOnTwoStars)
+            var timeLeft = timeOnTwoStars;
+            
+            var timerPointOnThreeStars = (timeOnTwoStars - timeOnThreeStars) * 0.5 / timeOnTwoStars;
+            
+            while (timeLeft >= 0)
             {
-                inGameData.TimerImage.fillAmount = Mathf.SmoothStep(0.5f, 0f, currentTime);
-                deltaTime = Mathf.Min(timeOnTwoStars, deltaTime + Time.deltaTime);
-                currentTime = Mathf.Min(endTime, (endTime * deltaTime) / timeOnTwoStars);
+                timeLeft -= Time.smoothDeltaTime;
+                var normalizedTime = Mathf.Clamp((timeLeft / timeOnTwoStars) * 0.5f, 0.0f, 1.0f);
 
-                yield return new WaitWhile(() => Pause);
-
-                if (inGameData.TimerImage.fillAmount <= 0.25f && inGameData.OffStar(2))
+                inGameData.TimerImage.fillAmount = normalizedTime;
+                
+                if (Pause) yield return new WaitWhile(() => Pause);
+                
+                if (inGameData.TimerImage.fillAmount <= (float)Math.Round(timerPointOnThreeStars, 3) && inGameData.OffStar(2))
                 {
-                    inGameData.OffStar(2);
+                    //inGameData.OffStar(2);
                 }
 
-                yield return new WaitForEndOfFrame();
+                yield return null;
             }
             inGameData.OffStar(1);
             TimerCoroutine = null;

@@ -122,12 +122,12 @@ namespace MatchThreeEngine
 					_slider.gameObject.SetActive(true);
 					StartCoroutine(StartTimer());
 					UIManager.Instance.TimerCoroutine = 
-						StartCoroutine(UIManager.Instance.UITimerCorutine(CurrentLevelData.TimeOnTwoStars));
+						StartCoroutine(UIManager.Instance.UITimerCorutine(CurrentLevelData.TimeOnTwoStars, CurrentLevelData.TimeOnThreeStars));
 					OnMatch += (data) => IncreaseScore(data);
 					break;
 				case LevelType.CollectTiles:
 					UIManager.Instance.TimerCoroutine = 
-						StartCoroutine(UIManager.Instance.UITimerCorutine(CurrentLevelData.TimeOnTwoStars));
+						StartCoroutine(UIManager.Instance.UITimerCorutine(CurrentLevelData.TimeOnTwoStars, CurrentLevelData.TimeOnThreeStars));
 					_currentTilesToCollect = new List<LevelData.TilesToCollect>(CurrentLevelData.tilesToCollect);
 					UIManager.Instance.SetTilesToCollect(CurrentLevelData.tilesToCollect);
 					OnMatch += (data) => CheckCollectedTiles(data);
@@ -138,6 +138,7 @@ namespace MatchThreeEngine
 		private void Update()
 		{
 			if (startTimer && !UIManager.Instance.Pause) TimerCooldown();
+
 		}
 
 		private void GetTip()

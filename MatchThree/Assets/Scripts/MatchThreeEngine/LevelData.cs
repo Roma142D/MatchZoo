@@ -28,6 +28,7 @@ namespace MatchThreeEngine
         public List<TilesToCollect> tilesToCollect;
         public float TimerStartingTime => timeToComplet.TimerStartingTime;
         public float TimeOnTwoStars => timeToComplet.TwoStars;
+        public float TimeOnThreeStars => timeToComplet.ThreeStars;
         //public int OnStarsComleted;
         
 

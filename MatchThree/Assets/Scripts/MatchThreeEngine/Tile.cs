@@ -7,6 +7,7 @@ namespace MatchThreeEngine
 {
 	public sealed class Tile : MonoBehaviour
 	{
+		[SerializeField] private Particles _particles;
 		public int x;
 		public int y;
 
@@ -47,6 +48,8 @@ namespace MatchThreeEngine
 				case TileType.Standart:
 					break;
 				case TileType.VerticalExplosive:
+					//Instantiate(_particles.VerticalExplosion, transform).Play();
+					_particles.VerticalExplosion.Play();
 					for (int i = y - 1; i >= 0; i--)
 					{
 						var other = tiles[x, i];
@@ -60,6 +63,8 @@ namespace MatchThreeEngine
 					match = new Match(Data, horizontalTilesToMatch.ToArray() ,verticalTilesToMatch.ToArray());
 					break;
 				case TileType.HorizontalExplosive:
+					//Instantiate(_particles.HorizontalExplosion, transform).Play();
+					_particles.HorizontalExplosion.Play();
 					for (int i = x - 1; i >= 0; i--)
 					{
 						var other = tiles[i, y];
@@ -74,6 +79,12 @@ namespace MatchThreeEngine
 					break;
 			}
 			return match;
+		}
+		[Serializable]
+		public struct Particles
+		{
+			public ParticleSystem VerticalExplosion;
+			public ParticleSystem HorizontalExplosion;	
 		}
 	}
 }
