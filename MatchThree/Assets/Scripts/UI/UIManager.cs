@@ -5,6 +5,7 @@ using System.Linq;
 using MatchThreeEngine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 namespace UI
@@ -13,17 +14,19 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance {get; private set;}
-        [SerializeField] private float _musicTimer;
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
         [SerializeField] private BackgroundMusic _backgroundMusic;
+        [SerializeField] private SettingsTab _settingsTab;
+        [SerializeField] private float _musicTimer;
+        [SerializeField] private AudioMixer _audioMixer;
         public TipButton tipButton;
         public InGameData inGameData;
         public List<TilesToCollectUI> tilesToCollectUI;
         public bool Pause {get; set;}
         public Coroutine TimerCoroutine;
         private float _currentMusicTimer;
-            
+        private float currentVolume;
 
         private void Awake()
         {
@@ -36,9 +39,10 @@ namespace UI
                 Destroy(gameObject);
             }
 
-            SetTipsAmount();
+            //SetTipsAmount();
             _currentMusicTimer = _musicTimer;
         }
+        
         private void Update()
         {
             _currentMusicTimer -= Time.deltaTime;
@@ -48,6 +52,7 @@ namespace UI
                 StartCoroutine(PlayRandomAudio());
             }
         }
+        
         private IEnumerator PlayRandomAudio()
         {
             if (_backgroundMusic.AudioSource.clip != null)
@@ -150,6 +155,20 @@ namespace UI
                                                             tilesCount.ToString() : 0.ToString());
         }
 
+        public void ToggleAllSound()
+        {
+            if (_audioMixer.GetFloat(GlobalData.MASTER_VOLUME, out currentVolume))
+            {
+                _audioMixer.SetFloat(GlobalData.MASTER_VOLUME, currentVolume > -80f ? -80f : 0);
+                _settingsTab.MasterVolumeSlider.value = currentVolume;
+            }
+        }
+        public void ChangeAllSoundsVolume()
+        {
+            var value = _settingsTab.MasterVolumeSlider.value;
+            _audioMixer.SetFloat(GlobalData.MASTER_VOLUME, value);
+        }
+
         [Serializable]
         public struct LevelCompletedTab
         {
@@ -166,6 +185,11 @@ namespace UI
                     starsParticles.startDelay = i;
                 }
             }
+        }
+        [Serializable] 
+        public struct SettingsTab
+        {
+            public Slider MasterVolumeSlider;
         }
         [Serializable]
         public struct InGameData
