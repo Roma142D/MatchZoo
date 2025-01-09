@@ -8,6 +8,7 @@ public static class GlobalData
     public const string AVAILABLE_TIPS = "AVAILABLE_TIPS";
     public const string IN_GAME_SCENE = "InGame";
     public const string MASTER_VOLUME = "MasterVolume";
+    public const string MUSIC_VOLUME = "BGMusicVolume";
     
     public static void OnLevelComplet(int levelNumber, int onStarsComplet)
     {
