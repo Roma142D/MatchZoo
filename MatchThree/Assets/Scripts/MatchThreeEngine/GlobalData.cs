@@ -1,9 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class GlobalData 
 {
+    [Serializable]
+    public enum AudioClipType
+    {
+        OnButtonClick, OnTileClick, OnMatch, OnWin, OnLose, Explosion 
+    }
     public const string LAST_PLAYED_LEVEL = "LAST_PLAYED_LEVEL";
     public const string AVAILABLE_TIPS = "AVAILABLE_TIPS";
     public const string IN_GAME_SCENE = "InGame";

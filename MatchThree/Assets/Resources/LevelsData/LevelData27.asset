@@ -16,7 +16,7 @@ MonoBehaviour:
   _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
   _boardSize: {x: 6, y: 7}
   timeToComplet:
-    TimerStartingTime: 30
+    TimerStartingTime: 25
     TwoStars: 150
     ThreeStars: 120
   _tilesToDisable:
@@ -30,5 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38350310bb850754199929fcf4d43373, type: 2}
   - {fileID: 11400000, guid: 29eb9af04443a9346a5810dc6e0a29e9, type: 2}
   - {fileID: 11400000, guid: 3a66d9c2d4d6bab44bc2952171a002c9, type: 2}
-  scoreToBeet: 30
+  scoreToBeet: 50
   tilesToCollect: []

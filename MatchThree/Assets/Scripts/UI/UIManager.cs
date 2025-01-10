@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MatchThreeEngine;
+using Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -16,17 +17,18 @@ namespace UI
         public static UIManager Instance {get; private set;}
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
-        [SerializeField] private BackgroundMusic _backgroundMusic;
-        [SerializeField] private SettingsTab _settingsTab;
-        [SerializeField] private float _musicTimer;
-        [SerializeField] private AudioMixer _audioMixer;
+        //[SerializeField] private BackgroundMusic _backgroundMusic;
+        [SerializeField] public SettingsTab settingsTab;
+        //[SerializeField] private float _musicTimer;
+        //[SerializeField] private AudioMixer _audioMixer;
+        public SoundManager soundManager;
         public TipButton tipButton;
         public InGameData inGameData;
         public List<TilesToCollectUI> tilesToCollectUI;
         public bool Pause {get; set;}
         public Coroutine TimerCoroutine;
-        private float _currentMusicTimer;
-        private float currentVolume;
+        //private float _currentMusicTimer;
+        //private float currentVolume;
 
         private void Awake()
         {
@@ -40,42 +42,6 @@ namespace UI
             }
 
             if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE) SetTipsAmount();
-        }
-        private void Start()
-        {
-            _currentMusicTimer = _musicTimer;
-
-            _settingsTab.MasterVolumeSlider.onValueChanged.AddListener(ChangeAllSoundsVolume);
-            var soundValue = PlayerPrefs.GetFloat(GlobalData.MASTER_VOLUME, 0f);
-            _settingsTab.MasterVolumeSlider.value = soundValue;
-
-            _settingsTab.MusicVolumeSlider.onValueChanged.AddListener(ChangeMusicSoundValue);
-            var musicValue = PlayerPrefs.GetFloat(GlobalData.MUSIC_VOLUME, 0f);
-            _settingsTab.MusicVolumeSlider.value = musicValue;
-        }
-        
-        private void Update()
-        {
-            _currentMusicTimer -= Time.deltaTime;
-            if (_currentMusicTimer <= 0)
-            {
-                _currentMusicTimer = _musicTimer;
-                StartCoroutine(PlayRandomAudio());
-            }
-        }
-        
-        private IEnumerator PlayRandomAudio()
-        {
-            if (_backgroundMusic.AudioSource.clip != null)
-            {
-                yield return new WaitUntil(() => _backgroundMusic.AudioSource.time >= _backgroundMusic.AudioSource.clip.length - 0.5f);
-                _backgroundMusic.AudioSource.clip = _backgroundMusic.AudioClips[UnityEngine.Random.Range(0, _backgroundMusic.AudioClips.Length)];
-            }
-            else
-            {
-                _backgroundMusic.AudioSource.clip = _backgroundMusic.AudioClips[UnityEngine.Random.Range(0, _backgroundMusic.AudioClips.Length)];
-            }
-            _backgroundMusic.AudioSource.Play();
         }
 
         public void SetTipsAmount()
@@ -92,6 +58,8 @@ namespace UI
             _levelCompletedTab.LevelCompletTabObject.SetActive(true);
             _levelCompletedTab.SetStars(inGameData.StarsImages.Count);
 
+            soundManager.PlaySound(GlobalData.AudioClipType.OnWin);
+
             var onStarsComleted = inGameData.StarsImages.Count;
             var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
             GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
@@ -101,6 +69,7 @@ namespace UI
         {
             if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
             ToggleObject(_gameOverTab);
+            soundManager.PlaySound(GlobalData.AudioClipType.OnLose);
         }
 
         public void ChangeScene(string sceneName)
@@ -164,70 +133,6 @@ namespace UI
         {
             tilesToCollectUI[tileIndex].TilesAmount.SetText(tilesCount >= 0 ? 
                                                             tilesCount.ToString() : 0.ToString());
-        }
-
-        public void ToggleSound(string groupeName)
-        {
-            switch (groupeName)
-            {
-                case GlobalData.MASTER_VOLUME :
-                    if (_audioMixer.GetFloat(GlobalData.MASTER_VOLUME, out currentVolume))
-                    {
-                        if (currentVolume > -60f)
-                        {
-                            ChangeAllSoundsVolume(-60f);
-                            _settingsTab.MasterVolumeSlider.value = -60f;
-                            //_settingsTab.MasterSoundButtonImage.sprite = _settingsTab.SoundOffSprite;
-                        }
-                        else
-                        {
-                            ChangeAllSoundsVolume(0f);
-                            _settingsTab.MasterVolumeSlider.value = 0f;
-                            //_settingsTab.MasterSoundButtonImage.sprite = _settingsTab.SoundOnSprite;
-                        }
-                        //_audioMixer.SetFloat(GlobalData.MASTER_VOLUME, currentVolume > -80f ? -80f : 0);
-                    }
-                    break;
-
-                case GlobalData.MUSIC_VOLUME :
-                    if (_audioMixer.GetFloat(GlobalData.MUSIC_VOLUME, out currentVolume))
-                    {
-                        if (currentVolume > -60f)
-                        {
-                            ChangeMusicSoundValue(-60f);
-                            _settingsTab.MusicVolumeSlider.value = -60f;
-                            //_settingsTab.MusicButtonImage.sprite = _settingsTab.MusicOffSprite;
-                        }
-                        else
-                        {
-                            ChangeMusicSoundValue(0f);
-                            _settingsTab.MusicVolumeSlider.value = 0f;
-                            //_settingsTab.MusicButtonImage.sprite = _settingsTab.MusicOnSprite;
-                        }
-                    }
-                    break;
-                
-            }
-           
-        }
-        public void ChangeAllSoundsVolume(float value)
-        {
-            //var value = _settingsTab.MasterVolumeSlider.value;
-            _audioMixer.SetFloat(GlobalData.MASTER_VOLUME, value);
-
-            _settingsTab.MasterSoundButtonImage.sprite = value <= -60f ? _settingsTab.SoundOffSprite : _settingsTab.SoundOnSprite;
-            
-            PlayerPrefs.SetFloat(GlobalData.MASTER_VOLUME, value);
-            PlayerPrefs.Save();
-        }
-        public void ChangeMusicSoundValue(float value)
-        {
-            _audioMixer.SetFloat(GlobalData.MUSIC_VOLUME, value);
-
-            _settingsTab.MusicButtonImage.sprite = value <= -60f ? _settingsTab.MusicOffSprite : _settingsTab.MusicOnSprite;
-            
-            PlayerPrefs.SetFloat(GlobalData.MUSIC_VOLUME, value);
-            PlayerPrefs.Save();
         }
 
         [Serializable]

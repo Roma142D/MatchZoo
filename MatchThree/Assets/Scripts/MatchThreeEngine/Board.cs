@@ -17,15 +17,13 @@ namespace MatchThreeEngine
 	{
 		//[SerializeField] private Button _helpButton;
 		[SerializeField] private AllLvelsData _levelsData;
-		[SerializeField] private AudioClip matchSound;
-		[SerializeField] private AudioSource audioSource;
 		[SerializeField] private Slider _slider;
 		//[SerializeField] private Image _handleImage;
 		[SerializeField] private float tweenDuration;
 
 		//[SerializeField] private Transform swappingOverlay;
 
-		[SerializeField] private bool ensureNoStartingMatches;
+		[SerializeField] private bool _ensureNoStartingMatches;
 		[SerializeField] private Item[] _specialTilesTypes;
 		private List<Row> _rows;
 		private Item[] _currentTilesTypes;
@@ -109,7 +107,7 @@ namespace MatchThreeEngine
 				}
 			}
 
-			if (ensureNoStartingMatches) StartCoroutine(EnsureNoStartingMatches());
+			if (_ensureNoStartingMatches) StartCoroutine(EnsureNoStartingMatches());
 			
 			
 			OnLevelComplet += UIManager.Instance.OnLevelComplete;
@@ -440,7 +438,10 @@ namespace MatchThreeEngine
 					matchedTiles.Add(tile);
 				}
 
-				audioSource.PlayOneShot(matchSound);
+				//if (explosion == null) 
+				UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.OnMatch);
+				
+				//audioSource.PlayOneShot(matchSound);
 				
 				OnMatch?.Invoke(matchedTiles.ToArray());
 

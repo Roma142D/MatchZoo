@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,10 @@ namespace MatchThreeEngine
 
 		public TileData Data => new TileData(x, y, _type.id);
 
+		private void Start()
+		{
+			button.onClick.AddListener(UIManager.Instance.soundManager.OnTileClickSoundPlay);
+		}
 		public Match Execute(TileData[,] tiles)
 		{
 			var width = tiles.GetLength(0);
@@ -50,6 +55,7 @@ namespace MatchThreeEngine
 				case TileType.VerticalExplosive:
 					//Instantiate(_particles.VerticalExplosion, transform).Play();
 					_particles.VerticalExplosion.Play();
+					UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Explosion);
 					for (int i = y - 1; i >= 0; i--)
 					{
 						var other = tiles[x, i];
@@ -65,6 +71,7 @@ namespace MatchThreeEngine
 				case TileType.HorizontalExplosive:
 					//Instantiate(_particles.HorizontalExplosion, transform).Play();
 					_particles.HorizontalExplosion.Play();
+					UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Explosion);
 					for (int i = x - 1; i >= 0; i--)
 					{
 						var other = tiles[i, y];
