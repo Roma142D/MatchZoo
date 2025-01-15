@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+//using System.Diagnostics;
+using UnityEngine;
 
 namespace MatchThreeEngine
 {
@@ -183,13 +185,14 @@ namespace MatchThreeEngine
 
 						var match = FindBestMatch(tilesCopy);
 
-						if (match != null && match.Score > bestScore 
-							&& tile1.TypeId != 0 && tile2.TypeId != 0)
+						if ((match != null && match.Score > bestScore 
+							&& GlobalData.IsTile(tile1) && GlobalData.IsTile(tile2)) || (GlobalData.IsSpecialTile(tile1) && GlobalData.IsTile(tile2) && 1 > bestScore))
 						{
 							bestMove = new Move(x, y, x2, y2);
 							
-							bestScore = match.Score;
+							bestScore = GlobalData.IsSpecialTile(tile1) ? 1 : match.Score;
 						}
+						
 
 						tilesCopy = Swap(x, y, x2, y2, tilesCopy);
 					}

@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelType: 0
   _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
-  _boardSize: {x: 6, y: 7}
+  _boardSize: {x: 7, y: 8}
   timeToComplet:
     TimerStartingTime: 25
-    TwoStars: 150
-    ThreeStars: 120
+    TwoStars: 180
+    ThreeStars: 150
   _tilesToDisable:
-    rows: 7
-    columns: 6
-    values: 000000000000000000000000000001010000000001010000000001010000000000000000000000000000
+    rows: 8
+    columns: 7
+    values: 0000010101000000000001000000000000000000000100000000000101000000000001000000000000000000000100000000000101010000
   tilesTypes:
   - {fileID: 11400000, guid: e9aa0ef239d5040469fcb06438de51e7, type: 2}
   - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}

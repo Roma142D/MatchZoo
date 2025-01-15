@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MatchThreeEngine;
 using UnityEngine;
 
 public static class GlobalData 
@@ -45,5 +46,13 @@ public static class GlobalData
         {
             return false;
         }
+    }
+    public static bool IsSpecialTile(TileData tile)
+    {
+        return tile.TypeId > 100;
+    }
+    public static bool IsTile(TileData tile)
+    {
+        return tile.TypeId > 0;
     }
 }

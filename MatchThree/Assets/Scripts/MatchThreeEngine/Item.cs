@@ -4,8 +4,9 @@ namespace MatchThreeEngine
     public enum TileType
     {
         Standart,
-        VerticalExplosive,
-        HorizontalExplosive,
+        VerticalExplosion,
+        HorizontalExplosion,
+        SquareExplosion
     }
     [CreateAssetMenu(fileName = "Item", menuName = "MatchThree/Item")]
     public sealed class Item : ScriptableObject

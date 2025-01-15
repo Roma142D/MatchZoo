@@ -52,7 +52,7 @@ namespace MatchThreeEngine
 			{
 				case TileType.Standart:
 					break;
-				case TileType.VerticalExplosive:
+				case TileType.VerticalExplosion:
 					//Instantiate(_particles.VerticalExplosion, transform).Play();
 					_particles.VerticalExplosion.Play();
 					UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Explosion);
@@ -68,7 +68,7 @@ namespace MatchThreeEngine
 					}
 					match = new Match(Data, horizontalTilesToMatch.ToArray() ,verticalTilesToMatch.ToArray());
 					break;
-				case TileType.HorizontalExplosive:
+				case TileType.HorizontalExplosion:
 					//Instantiate(_particles.HorizontalExplosion, transform).Play();
 					_particles.HorizontalExplosion.Play();
 					UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Explosion);
@@ -84,6 +84,22 @@ namespace MatchThreeEngine
 					}
 					match = new Match(Data, horizontalTilesToMatch.ToArray() ,verticalTilesToMatch.ToArray());
 					break;
+				case TileType.SquareExplosion:
+					_particles.SquareExplosion.Play();
+					UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Explosion);
+					for (int i = x - 1; i <= x + 1; i++)
+					{
+						for (int j = y - 1; j <= y + 1; j++)
+						{
+							if (i >= 0 && i < width && j >= 0 && j < height)
+							{
+								var other = tiles[i, j];
+								horizontalTilesToMatch.Add(other);
+							}
+						}
+					}
+					match = new Match(Data, horizontalTilesToMatch.ToArray() ,verticalTilesToMatch.ToArray());
+					break;
 			}
 			return match;
 		}
@@ -92,6 +108,7 @@ namespace MatchThreeEngine
 		{
 			public ParticleSystem VerticalExplosion;
 			public ParticleSystem HorizontalExplosion;	
+			public ParticleSystem SquareExplosion;
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UI;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
@@ -353,8 +353,8 @@ namespace MatchThreeEngine
 			var matrix = Matrix;
 
 			while (TileDataMatrixUtility.FindBestMove(matrix) == null || TileDataMatrixUtility.FindBestMatch(matrix) != null)
-			{
-				Shuffle();
+			{			
+				if (!_isShuffling) Shuffle();
 
 				matrix = Matrix;
 			}
@@ -456,7 +456,7 @@ namespace MatchThreeEngine
 					Item item;
 					if (match != explosion)
 					{
-						item = i == 3 ? _specialTilesTypes[Random.Range(0, _specialTilesTypes.Length)]
+						item = i == 3 ? SetSpecialTileType(match.MatchType)
 								: _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];			
 					}
 					else
@@ -481,6 +481,25 @@ namespace MatchThreeEngine
 
 			return didMatch;
 		}
+		private Item SetSpecialTileType(MatchType matchType)
+		{
+			Item tileItem;
+			switch (matchType)
+			{
+				case MatchType.Horizontal :
+					tileItem = _specialTilesTypes.First(tileItem => tileItem.tileType == TileType.HorizontalExplosion);
+					break;
+				case MatchType.Vertical :
+					tileItem = _specialTilesTypes.First(tileItem => tileItem.tileType == TileType.VerticalExplosion);
+					break;
+				case MatchType.BothDirections :
+					tileItem = _specialTilesTypes.First(tileItem => tileItem.tileType == TileType.SquareExplosion);
+					break;
+                default : tileItem = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
+					break;
+			}
+			return tileItem;
+		}
 
 		private void Shuffle()
 		{
@@ -488,9 +507,21 @@ namespace MatchThreeEngine
 
 			foreach (var row in _rows)
 				foreach (var tile in row.tiles)
-					tile.Type = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
+					{
+						//await TryMatchAsync(tile.Execute(Matrix));
+						tile.Type = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
+					}
 
 			_isShuffling = false;
+		}
+		private void ExplodeBombs()
+		{
+			foreach (var row in _rows)
+				foreach (var tile in row.tiles)
+					{
+						tile.Execute(Matrix);
+						//tile.Type = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
+					}
 		}
 
 		private void OnDestroy()

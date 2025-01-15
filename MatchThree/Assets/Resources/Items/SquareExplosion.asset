@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f57d266c358916544812d4ccdd89a5d2, type: 3}
-  m_Name: Giraffe
+  m_Name: SquareExplosion
   m_EditorClassIdentifier: 
-  _sprite: {fileID: -397833759, guid: 9711382bc7a13cf49be7d4d5aedc8e00, type: 3}
+  _sprite: {fileID: 21300000, guid: 5b821a81c126b774a818db014459ef61, type: 3}
   _value: 1
-  tileType: 0
-  id: 2
+  tileType: 3
+  id: 103

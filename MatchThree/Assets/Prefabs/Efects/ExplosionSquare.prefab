@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7774430996325407735}
   - component: {fileID: 7363102614110465822}
   m_Layer: 5
-  m_Name: ExplosionHorizontal
+  m_Name: ExplosionSquare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 8, y: 0.5, z: 0}
+    m_Scale: {x: 2, y: 2, z: 0}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
