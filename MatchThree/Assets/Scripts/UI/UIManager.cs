@@ -15,6 +15,7 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance {get; private set;}
+        [SerializeField] private LoadingScreen _loadingScreen;
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
         //[SerializeField] private BackgroundMusic _backgroundMusic;
@@ -27,6 +28,8 @@ namespace UI
         public List<TilesToCollectUI> tilesToCollectUI;
         public bool Pause {get; set;}
         public Coroutine TimerCoroutine;
+        private AsyncOperation _loadingOperation;
+        private bool _shouldPlayLoadingAnim;
         //private float _currentMusicTimer;
         //private float currentVolume;
 
@@ -42,6 +45,14 @@ namespace UI
             }
 
             if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE) SetTipsAmount();
+        }
+        private void Start()
+        {
+            if (_shouldPlayLoadingAnim)
+            {
+                _loadingScreen.Animator.SetTrigger("EndLoading");
+                //_loadingScreen.LoadingScreenObject.SetActive(false);
+            } 
         }
 
         public void SetTipsAmount()
@@ -74,7 +85,13 @@ namespace UI
 
         public void ChangeScene(string sceneName)
         {
-            SceneManager.LoadScene(sceneName);
+            _loadingScreen.LoadingScreenObject.SetActive(true);
+            Instance._loadingScreen.Animator.SetTrigger("StartLoading");
+
+            Instance._loadingOperation = SceneManager.LoadSceneAsync(sceneName);
+            Instance._loadingOperation.allowSceneActivation = false;
+
+            StartCoroutine(OnLoadingSceen());
         }
         public void ToggleObject(GameObject objectToToggle)
         {
@@ -133,6 +150,24 @@ namespace UI
         {
             tilesToCollectUI[tileIndex].TilesAmount.SetText(tilesCount >= 0 ? 
                                                             tilesCount.ToString() : 0.ToString());
+        }
+
+        private IEnumerator OnLoadingSceen()
+        {
+            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitUntil(() => _loadingScreen.LoadingImage.IsActive());
+            _shouldPlayLoadingAnim = true;
+            _loadingOperation.allowSceneActivation = true;
+            while (_loadingScreen.LoadingImage.fillAmount <= 1)
+            {
+                _loadingScreen.LoadingImage.fillAmount = _loadingOperation.progress;
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        public void OnAnimationOver()
+        {
+            //_shouldPlayLoadingAnim = true;
+            //_loadingOperation.allowSceneActivation = true;
         }
 
         [Serializable]
@@ -207,6 +242,13 @@ namespace UI
         {
             public AudioSource AudioSource;
             public AudioClip[] AudioClips;     
+        }
+        [Serializable]
+        public struct LoadingScreen
+        {
+            public GameObject LoadingScreenObject;
+            public Animator Animator;
+            public Image LoadingImage;
         }
     }
 }

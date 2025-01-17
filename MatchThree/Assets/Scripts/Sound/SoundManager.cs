@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -19,6 +20,7 @@ namespace Sound
 
         private void Start()
         {
+            StartCoroutine(PlayRandomAudio());
             _currentMusicTimer = _musicTimer;
 
             UIManager.Instance.settingsTab.MasterVolumeSlider.onValueChanged.AddListener(ChangeAllSoundsVolume);
@@ -43,7 +45,8 @@ namespace Sound
             if (_audioSourceMusic.clip != null)
             {
                 yield return new WaitUntil(() => _audioSourceMusic.time >= _audioSourceMusic.clip.length - 0.5f);
-                _audioSourceMusic.clip = _BGMusicClips[UnityEngine.Random.Range(0, _BGMusicClips.Length)];
+                var currentClip = _BGMusicClips.Where(clip => clip == _audioSourceMusic.clip);
+                _audioSourceMusic.clip = _BGMusicClips.Except(currentClip).ToArray()[UnityEngine.Random.Range(0, _BGMusicClips.Length - 1)];
             }
             else
             {

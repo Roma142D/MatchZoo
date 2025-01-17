@@ -225,7 +225,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -53.649994, y: 0}
-  m_SizeDelta: {x: 107.3, y: -140}
+  m_SizeDelta: {x: 107.3, y: -115.699486}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &945464278495762780
 CanvasRenderer:
@@ -315,7 +315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.380005, y: 1.1300049}
+  m_AnchoredPosition: {x: 5.380127, y: 1.1298828}
   m_SizeDelta: {x: 103.58, y: 1026.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6667395621518932113
@@ -467,7 +467,7 @@ RectTransform:
   m_Father: {fileID: 6371788417988842011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 3
-  m_AspectRatio: 0.9
+  m_AspectRatio: 0.75
 --- !u!114 &71005698997726984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,10 +578,10 @@ RectTransform:
   - {fileID: 6958446383034442280}
   m_Father: {fileID: 5510306246883461325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 200}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 236.87607, y: -400}
+  m_SizeDelta: {x: 473.75214, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4154108631228105589
 MonoBehaviour:
@@ -666,7 +666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6371788417988842011
 RectTransform:
   m_ObjectHideFlags: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 2
-  m_AspectRatio: 0.9
+  m_AspectRatio: 0.75
 --- !u!114 &5821570766575299854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,9 +726,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
+    m_Left: 50
+    m_Right: 50
+    m_Top: 100
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -773,9 +773,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1791912344721118272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -400}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1422660167565955611
@@ -861,7 +861,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI.UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Sound.SoundManager, Assembly-CSharp
+        m_MethodName: OnButtonClickSoundPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Sound.SoundManager, Assembly-CSharp
         m_MethodName: ToggleSound
         m_Mode: 5
         m_Arguments:
@@ -1053,10 +1065,10 @@ RectTransform:
   - {fileID: 4684824678678553955}
   m_Father: {fileID: 5510306246883461325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 200}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 236.87607, y: -150}
+  m_SizeDelta: {x: 473.75214, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8053958410396130450
 MonoBehaviour:
@@ -1193,9 +1205,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1791912344721118272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -150}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8554408564681408814
@@ -1281,7 +1293,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI.UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Sound.SoundManager, Assembly-CSharp
+        m_MethodName: OnButtonClickSoundPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Sound.SoundManager, Assembly-CSharp
         m_MethodName: ToggleSound
         m_Mode: 5
         m_Arguments:
@@ -1344,8 +1368,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4684824678678553955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.75, y: 0}
+  m_AnchorMax: {x: 0.75, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1423,7 +1447,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
   m_AnchoredPosition: {x: 10.839966, y: 0}
-  m_SizeDelta: {x: 63.78, y: 0}
+  m_SizeDelta: {x: 63.78, y: -122.18118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2147216631051423431
 CanvasRenderer:
@@ -1513,7 +1537,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
   m_AnchoredPosition: {x: 10.839966, y: 0}
-  m_SizeDelta: {x: 63.78, y: 0}
+  m_SizeDelta: {x: 63.78, y: -122.18118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2704411967525288815
 CanvasRenderer:
@@ -1601,10 +1625,10 @@ RectTransform:
   - {fileID: 9184254095639902764}
   m_Father: {fileID: 6371788417988842011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 68.38194}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 222.37521, y: -134.19098}
+  m_SizeDelta: {x: 344.75043, y: 68.38194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5808076325183840574
 MonoBehaviour:
@@ -1684,8 +1708,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6958446383034442280}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.75, y: 0}
+  m_AnchorMax: {x: 0.75, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1797,10 +1821,10 @@ RectTransform:
   - {fileID: 7717955631486565423}
   m_Father: {fileID: 6371788417988842011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 68.38194}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 656.62646, y: -134.19098}
+  m_SizeDelta: {x: 523.75214, y: 68.38194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1756675825372680322
 MonoBehaviour:
