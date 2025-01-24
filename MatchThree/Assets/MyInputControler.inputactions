@@ -1,0 +1,54 @@
+{
+    "name": "MyInputControler",
+    "maps": [
+        {
+            "name": "Touchscreen",
+            "id": "c71efe49-a131-4807-9146-d1d184aab568",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Button",
+                    "id": "4b8105e4-4e86-4f14-b584-ed175b358498",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Swipe",
+                    "type": "PassThrough",
+                    "id": "3df08586-8298-4e99-8830-56aae8d5c500",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ef82bb84-bd20-4999-8e2e-e6339345078f",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "069cdc24-dc3f-476d-a6ce-eb356968c47d",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

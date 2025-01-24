@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UI;
-//using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
@@ -15,6 +16,10 @@ namespace MatchThreeEngine
 {
 	public sealed class Board : MonoBehaviour
 	{
+		[SerializeField] private Canvas _canvas;
+		[SerializeField]private GraphicRaycaster _raycaster;
+		[SerializeField] private float _minSwipeLength;
+		[SerializeField] private InputActionReference _touchInputAction;
 		//[SerializeField] private Button _helpButton;
 		[SerializeField] private AllLvelsData _levelsData;
 		[SerializeField] private Slider _slider;
@@ -55,7 +60,15 @@ namespace MatchThreeEngine
 
 		private Coroutine _checkScoreRoutine;
 
-		private TileData[,] Matrix
+		private MyInputControler _inputControler;
+
+		private EventSystem _eventSystem;
+		private PointerEventData _pointerEventData;
+        private Vector2 _startSwipePosition;
+		private Vector2 _endSwipePosition;
+		
+
+        private TileData[,] Matrix
 		{
 			get
 			{
@@ -80,7 +93,80 @@ namespace MatchThreeEngine
 			}
 		}
 		
-		private void Start()
+		private void Awake()
+		{
+			//_raycaster = _canvas.GetComponent<GraphicRaycaster>();
+			_eventSystem = EventSystem.current;
+
+
+			//_touchInputAction.action.Enable();
+			//_touchInputAction.action.started += StartSwipe;
+			//_touchInputAction.action.canceled += SelectTile;
+			
+			_inputControler = new MyInputControler();
+			_inputControler.Enable();
+			_inputControler.Touchscreen.Touch.started += StartSwipe;
+			_inputControler.Touchscreen.Touch.canceled += SelectTile;
+		}
+
+        private void StartSwipe(InputAction.CallbackContext context)
+        {
+            _startSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
+			
+			_pointerEventData = new PointerEventData(_eventSystem)
+			{
+				position = _startSwipePosition
+			};
+			
+			List<RaycastResult> startResults = new List<RaycastResult>();
+			_raycaster.Raycast(_pointerEventData, startResults);
+			
+			foreach (var result in startResults)
+			{
+				Tile tile = result.gameObject.GetComponent<Tile>();
+				if (tile != null)
+				{
+					Debug.Log(tile.Type.name);
+					Select(tile);
+				}
+			}
+			
+        }
+
+        public void SelectTile(InputAction.CallbackContext context)
+        {
+			_endSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
+			var swipeVector = _endSwipePosition - _startSwipePosition;
+			if (swipeVector.magnitude > _minSwipeLength)
+			{
+				_pointerEventData = new PointerEventData(_eventSystem)
+				{
+					position = _endSwipePosition
+				};
+				
+				List<RaycastResult> endResults = new List<RaycastResult>();
+				_raycaster.Raycast(_pointerEventData, endResults);
+				
+				foreach (var result in endResults)
+				{
+					Tile tile = result.gameObject.GetComponent<Tile>();
+					if (tile != null)
+					{
+						Debug.Log(tile.Type.name);
+						Select(tile);
+					}
+				}
+			}
+			
+			Debug.Log($"SwipeMagnitude: {swipeVector.magnitude} StartPosition: {_startSwipePosition} EndPosition: {_endSwipePosition}");
+		
+			//Debug.Log("SelectTile");
+			//var tile = results.FirstOrDefault(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
+			//Debug.Log(tile.name);
+			//Select(tile);
+        }
+
+        private void Start()
 		{
 			Debug.Log(CurrentLevelData.name);
 			_rows = new List<Row>(CurrentLevelData.GenerateBoard(transform));
@@ -103,7 +189,7 @@ namespace MatchThreeEngine
 
 					tile.Type = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
 
-					tile.button.onClick.AddListener(() => Select(tile));
+					//tile.button.onClick.AddListener(() => Select(tile));
 				}
 			}
 
@@ -136,7 +222,16 @@ namespace MatchThreeEngine
 		private void Update()
 		{
 			if (startTimer && !UIManager.Instance.Pause) TimerCooldown();
-
+			/*
+			if (Input.touchCount > 0)
+			{
+				Touch touch = Input.GetTouch(0);
+				if (touch.phase == UnityEngine.TouchPhase.Began)
+				{
+					SelectTile(touch.position);
+				}
+			}
+			*/
 		}
 
 		private void GetTip()
@@ -529,12 +624,22 @@ namespace MatchThreeEngine
 			OnMatch -= (data) => IncreaseScore(data);
 			OnLevelComplet -= UIManager.Instance.OnLevelComplete;
 			OnGameOver -= UIManager.Instance.OnGameOver;
+
+			_inputControler.Disable();
+			_inputControler.Touchscreen.Touch.started -= StartSwipe;
+			_inputControler.Touchscreen.Touch.canceled -= SelectTile;
 		}
 		private void OnDisable()
 		{
+			//_touchInputAction.action.Disable();
+
 			OnMatch -= (data) => IncreaseScore(data);
 			OnLevelComplet -= UIManager.Instance.OnLevelComplete;
 			OnGameOver -= UIManager.Instance.OnGameOver;
+			
+			_inputControler.Disable();
+			_inputControler.Touchscreen.Touch.started -= StartSwipe;
+			_inputControler.Touchscreen.Touch.canceled -= SelectTile;
 		}
 
 	}
