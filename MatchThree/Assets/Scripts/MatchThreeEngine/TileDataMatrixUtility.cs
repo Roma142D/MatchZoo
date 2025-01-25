@@ -123,6 +123,40 @@ namespace MatchThreeEngine
 			_ => (0, 0),
 		};
 
+		public static Vector2Int GetNeighborTileCoordinates(GlobalData.Direction direction, Tile originTile, TileData[,] matrix)
+		{
+			var width = matrix.GetLength(0);
+			var height = matrix.GetLength(1);
+			
+			switch (direction)
+			{
+				case GlobalData.Direction.UP:
+					if (originTile.y > 0)
+					{
+						return new Vector2Int(originTile.x, originTile.y - 1);
+					}
+					break;
+				case GlobalData.Direction.DOWN:
+					if (originTile.y < height - 1)
+					{
+						return new Vector2Int(originTile.x, originTile.y + 1);
+					}
+					break;
+				case GlobalData.Direction.LEFT:	
+					if (originTile.x > 0)
+					{
+						return new Vector2Int(originTile.x - 1, originTile.y);
+					}
+					break;
+				case GlobalData.Direction.RIGHT:
+					if (originTile.x < width - 1)
+					{
+						return new Vector2Int(originTile.x + 1, originTile.y);
+					}
+					break;
+			}
+			return new Vector2Int(originTile.x, originTile.y);
+		}
 		public static Move FindMove(TileData[,] tiles)
 		{
 			var tilesCopy = (TileData[,])tiles.Clone();

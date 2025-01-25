@@ -16,11 +16,8 @@ namespace MatchThreeEngine
 {
 	public sealed class Board : MonoBehaviour
 	{
-		[SerializeField] private Canvas _canvas;
 		[SerializeField]private GraphicRaycaster _raycaster;
 		[SerializeField] private float _minSwipeLength;
-		[SerializeField] private InputActionReference _touchInputAction;
-		//[SerializeField] private Button _helpButton;
 		[SerializeField] private AllLvelsData _levelsData;
 		[SerializeField] private Slider _slider;
 		//[SerializeField] private Image _handleImage;
@@ -121,45 +118,54 @@ namespace MatchThreeEngine
 			List<RaycastResult> startResults = new List<RaycastResult>();
 			_raycaster.Raycast(_pointerEventData, startResults);
 			
-			foreach (var result in startResults)
+			if (startResults.Any(result => result.gameObject.TryGetComponent(out Tile tile)))
 			{
-				Tile tile = result.gameObject.GetComponent<Tile>();
-				if (tile != null)
-				{
-					Debug.Log(tile.Type.name);
-					Select(tile);
-				}
+				var tile = startResults.First(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
+				Select(tile);
 			}
-			
         }
 
         public void SelectTile(InputAction.CallbackContext context)
         {
 			_endSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			var swipeVector = _endSwipePosition - _startSwipePosition;
-			if (swipeVector.magnitude > _minSwipeLength)
+			var selectedTile = _selection.FirstOrDefault();
+			if (swipeVector.magnitude > _minSwipeLength && selectedTile != null)
 			{
-				_pointerEventData = new PointerEventData(_eventSystem)
+				if (Math.Abs(swipeVector.x) > Math.Abs(swipeVector.y))
 				{
-					position = _endSwipePosition
-				};
-				
-				List<RaycastResult> endResults = new List<RaycastResult>();
-				_raycaster.Raycast(_pointerEventData, endResults);
-				
-				foreach (var result in endResults)
-				{
-					Tile tile = result.gameObject.GetComponent<Tile>();
-					if (tile != null)
+					if (_endSwipePosition.x > _startSwipePosition.x)
 					{
-						Debug.Log(tile.Type.name);
-						Select(tile);
+						var rightPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, selectedTile, Matrix);
+						Select(GetTile(rightPosition));
+						Debug.Log("Right");
+					}
+					else if (_endSwipePosition.x < _startSwipePosition.x)
+					{
+						var leftPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.LEFT, selectedTile, Matrix);
+						Select(GetTile(leftPosition));
+						Debug.Log("Left");
+					}
+				}
+				else
+				{
+					if (_endSwipePosition.y > _startSwipePosition.y)
+					{
+						var upPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.UP, selectedTile, Matrix);
+						Select(GetTile(upPosition));
+						Debug.Log("Up");
+					}
+					else if (_endSwipePosition.y < _startSwipePosition.y)
+					{
+						var downPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.DOWN, selectedTile, Matrix);
+						Select(GetTile(downPosition));
+						Debug.Log("Down");
 					}
 				}
 			}
 			
-			Debug.Log($"SwipeMagnitude: {swipeVector.magnitude} StartPosition: {_startSwipePosition} EndPosition: {_endSwipePosition}");
 		
+			//Debug.Log($"SwipeMagnitude: {swipeVector.magnitude} StartPosition: {swipeVector.x} EndPosition: {swipeVector.y}");
 			//Debug.Log("SelectTile");
 			//var tile = results.FirstOrDefault(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
 			//Debug.Log(tile.name);
@@ -394,6 +400,7 @@ namespace MatchThreeEngine
 			}
 		}
 		private Tile GetTile(int x, int y) => _rows[y].tiles[x];
+		private Tile GetTile(Vector2Int coordinates) => GetTile(coordinates.x, coordinates.y);
 		
 		private Tile[] GetTiles(IList<TileData> tileData)
 		{
@@ -411,6 +418,7 @@ namespace MatchThreeEngine
 			var goToOrigin = DOTween.Sequence();
             var highlightSequence = DOTween.Sequence();
             
+			if (!GlobalData.IsTile(tile.Data)) return;
             
             highlightSequence.Join(tile.icon.transform.DOScale(new Vector3 (1.3f, 1.3f, 1.3f), tweenDuration));
 
@@ -521,6 +529,9 @@ namespace MatchThreeEngine
 			while (match != null)
 			{
 				var matchedTiles = new List<Tile>();
+
+				Match explodeMatch = null;
+
 				didMatch = true;
 
 				var tiles = GetTiles(match.Tiles);
@@ -545,6 +556,17 @@ namespace MatchThreeEngine
 						
 				var inflateSequence = DOTween.Sequence();
 
+				if (matchedTiles.Any(tile => GlobalData.IsSpecialTile(tile.Data)))
+				{
+					Debug.Log("Special Tile");
+					var explodeTiles = matchedTiles.Where(tile => GlobalData.IsSpecialTile(tile.Data)).ToList();
+					foreach (var tile in explodeTiles)
+					{
+						explodeMatch = tile.Execute(Matrix);
+					}
+					//explodeMatch = explodeTile.Execute(Matrix);
+				}
+				
 				for (int i = 0; i < tiles.Length; i++)
 				{
 					var tile = tiles[i];
@@ -567,9 +589,8 @@ namespace MatchThreeEngine
 				                     .AsyncWaitForCompletion();
 
 
-				match = TileDataMatrixUtility.FindBestMatch(Matrix);
-				
-				
+				match = explodeMatch != null ? explodeMatch : TileDataMatrixUtility.FindBestMatch(Matrix);
+						
 			}
 
 			_isMatching = false;

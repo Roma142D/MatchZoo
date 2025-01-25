@@ -4602,7 +4602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7464671453100538530, guid: 5dcdd00f2bbfe674cb889a3c652552f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50.000366
+      value: -50.00049
       objectReference: {fileID: 0}
     - target: {fileID: 7464671453100538530, guid: 5dcdd00f2bbfe674cb889a3c652552f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5929,7 +5929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7115754225013534708, guid: da06ab0e4979a1c4199d9f0d5d34e9a8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50.000366
+      value: -50.00049
       objectReference: {fileID: 0}
     - target: {fileID: 7115754225013534708, guid: da06ab0e4979a1c4199d9f0d5d34e9a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6211,7 +6211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6848202170484039915, guid: 906910e1d9cd5e94c8bae4aafbdb8ef0, type: 3}
       propertyPath: _minSwipeLength
-      value: 150
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6848202170484039915, guid: 906910e1d9cd5e94c8bae4aafbdb8ef0, type: 3}
       propertyPath: _scoreMultiplier
