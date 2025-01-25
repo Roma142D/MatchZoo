@@ -556,7 +556,8 @@ namespace MatchThreeEngine
 						
 				var inflateSequence = DOTween.Sequence();
 
-				if (matchedTiles.Any(tile => GlobalData.IsSpecialTile(tile.Data)))
+								
+				if (matchedTiles.Skip(1).Any(tile => GlobalData.IsSpecialTile(tile.Data)))
 				{
 					Debug.Log("Special Tile");
 					var explodeTiles = matchedTiles.Where(tile => GlobalData.IsSpecialTile(tile.Data)).ToList();
@@ -571,14 +572,15 @@ namespace MatchThreeEngine
 				{
 					var tile = tiles[i];
 					Item item;
-					if (match != explosion)
+					if (match.Tiles.Any(tile => GlobalData.IsSpecialTile(tile)))
 					{
-						item = i == 3 ? SetSpecialTileType(match.MatchType)
-								: _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];			
+						item = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];	
 					}
 					else
 					{
-						item = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
+						item = i == 3 ? SetSpecialTileType(match.MatchType)
+								: _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
+						//item = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
 					}
                     tile.Type = item;
 
