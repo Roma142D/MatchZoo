@@ -1424,6 +1424,7 @@ MonoBehaviour:
     MusicOnSprite: {fileID: 21300000, guid: 40519286558380b409bb1dad54072454, type: 3}
     MusicOffSprite: {fileID: 21300000, guid: 18a071ba61a141447880195f991322ca, type: 3}
     MusicVolumeSlider: {fileID: 199242517}
+  backgroundImage: {fileID: 0}
   soundManager: {fileID: 244740990}
   tipButton:
     Button: {fileID: 0}
@@ -11488,6 +11489,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2460536147576157650, guid: 04908b19931a97c40b17fbdff5621ffb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1dbfe4a1daba7684781fb5cc5f4dbd14, type: 3}
     - target: {fileID: 7597543928524855648, guid: 04908b19931a97c40b17fbdff5621ffb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

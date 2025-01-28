@@ -18,10 +18,9 @@ namespace UI
         [SerializeField] private LoadingScreen _loadingScreen;
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
-        //[SerializeField] private BackgroundMusic _backgroundMusic;
         [SerializeField] public SettingsTab settingsTab;
-        //[SerializeField] private float _musicTimer;
-        //[SerializeField] private AudioMixer _audioMixer;
+        
+        public Image backgroundImage;
         public SoundManager soundManager;
         public TipButton tipButton;
         public InGameData inGameData;

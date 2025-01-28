@@ -40,6 +40,8 @@ namespace MatchThreeEngine
 		private void Start()
 		{
 			button.onClick.AddListener(UIManager.Instance.soundManager.OnTileClickSoundPlay);
+			if(_type.tileType == TileType.Standart) icon.sprite = _type.Sprite;
+		
 		}
 		public Match Execute(TileData[,] tiles)
 		{

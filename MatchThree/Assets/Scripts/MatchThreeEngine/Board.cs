@@ -179,6 +179,7 @@ namespace MatchThreeEngine
 			_currentTilesTypes = CurrentLevelData.tilesTypes.ToArray();
 			var levelNumber = (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) + 1);
 			UIManager.Instance.inGameData.LevelSerialNumber.SetText($"lvl {levelNumber}");
+			UIManager.Instance.backgroundImage.sprite = CurrentLevelData.background;
 
 			_scoreMultiplier = 1;
 
@@ -279,7 +280,7 @@ namespace MatchThreeEngine
 		{	
 			var tilesValue = matchedTiles.Select(tile => tile.Type.Value).ToArray().Sum();
 			
-			Debug.Log(tilesValue);
+			//Debug.Log(tilesValue);
 			_slider.value = _currentScore += tilesValue * _scoreMultiplier;
 			
 			TotalScore += tilesValue * _scoreMultiplier;
@@ -560,12 +561,14 @@ namespace MatchThreeEngine
 				if (matchedTiles.Skip(1).Any(tile => GlobalData.IsSpecialTile(tile.Data)))
 				{
 					Debug.Log("Special Tile");
-					var explodeTiles = matchedTiles.Where(tile => GlobalData.IsSpecialTile(tile.Data)).ToList();
+					var explodeTiles = matchedTiles.Skip(1).Where(tile => GlobalData.IsSpecialTile(tile.Data)).ToList();
+					
 					foreach (var tile in explodeTiles)
 					{
 						explodeMatch = tile.Execute(Matrix);
 					}
-					//explodeMatch = explodeTile.Execute(Matrix);
+					
+					//explodeMatch = explodeTiles.First().Execute(Matrix);
 				}
 				
 				for (int i = 0; i < tiles.Length; i++)

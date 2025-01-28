@@ -16,6 +16,7 @@ namespace MatchThreeEngine
     public class LevelData : ScriptableObject
     {
         public LevelType levelType;
+        public Sprite background;
         [SerializeField] private Row _rowPrefab;
         [SerializeField] private Vector2Int _boardSize;
         [SerializeField] private TimeToComplete timeToComplet;
@@ -47,7 +48,7 @@ namespace MatchThreeEngine
                     tile.y = y;
                     if (_tilesToDisable.GetValue(y, x))
                     {
-                        tile.icon.gameObject.SetActive(false);
+                        //tile.icon.gameObject.SetActive(false);
                         tile.button.interactable = false;
                     }
                 }

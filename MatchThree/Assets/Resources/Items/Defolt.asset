@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57d266c358916544812d4ccdd89a5d2, type: 3}
   m_Name: Defolt
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 6252363917885597038, guid: 6967e3f4e2587234dbbfa076145bd5ac, type: 3}
   _value: 0
+  tileType: 0
   id: 0
