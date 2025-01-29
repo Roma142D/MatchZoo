@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bush-in-shape-a-square-vector-26028246_0: 6252363917885597038
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

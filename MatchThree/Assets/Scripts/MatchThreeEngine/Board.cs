@@ -519,6 +519,7 @@ namespace MatchThreeEngine
 
 		private async Task<bool> TryMatchAsync(Match explosion)
 		{
+			var excludeList = new List<Tile>();
 			var didMatch = false;
 
 			_isMatching = true;
@@ -535,7 +536,8 @@ namespace MatchThreeEngine
 
 				didMatch = true;
 
-				var tiles = GetTiles(match.Tiles);
+				var tiles = excludeList.Count > 0 ? GetTiles(match.Tiles).Except(excludeList).ToArray() : GetTiles(match.Tiles);
+				excludeList.Clear();
 
 				var deflateSequence = DOTween.Sequence();
 
@@ -557,19 +559,22 @@ namespace MatchThreeEngine
 						
 				var inflateSequence = DOTween.Sequence();
 
-								
+						
 				if (matchedTiles.Skip(1).Any(tile => GlobalData.IsSpecialTile(tile.Data)))
 				{
+					//excludeList.Clear();
 					Debug.Log("Special Tile");
 					var explodeTiles = matchedTiles.Skip(1).Where(tile => GlobalData.IsSpecialTile(tile.Data)).ToList();
+					
 					
 					foreach (var tile in explodeTiles)
 					{
 						explodeMatch = tile.Execute(Matrix);
 					}
-					
+					excludeList.AddRange(matchedTiles);
 					//explodeMatch = explodeTiles.First().Execute(Matrix);
 				}
+		
 				
 				for (int i = 0; i < tiles.Length; i++)
 				{
