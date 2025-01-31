@@ -108,6 +108,8 @@ namespace MatchThreeEngine
 
         private void StartSwipe(InputAction.CallbackContext context)
         {
+			if (UIManager.Instance.Pause) return;
+			
             _startSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
 			_pointerEventData = new PointerEventData(_eventSystem)
@@ -179,7 +181,9 @@ namespace MatchThreeEngine
 			_currentTilesTypes = CurrentLevelData.tilesTypes.ToArray();
 			var levelNumber = (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) + 1);
 			UIManager.Instance.inGameData.LevelSerialNumber.SetText($"lvl {levelNumber}");
-			UIManager.Instance.backgroundImage.sprite = CurrentLevelData.background;
+			
+			UIManager.Instance.backgroundImage.sprite = CurrentLevelData.background != null ? CurrentLevelData.background 
+																							: UIManager.Instance.backgroundImage.sprite;
 
 			_scoreMultiplier = 1;
 
@@ -563,7 +567,7 @@ namespace MatchThreeEngine
 				if (matchedTiles.Skip(1).Any(tile => GlobalData.IsSpecialTile(tile.Data)))
 				{
 					//excludeList.Clear();
-					Debug.Log("Special Tile");
+					Debug.Log("Special Tile"); 
 					var explodeTiles = matchedTiles.Skip(1).Where(tile => GlobalData.IsSpecialTile(tile.Data)).ToList();
 					
 					

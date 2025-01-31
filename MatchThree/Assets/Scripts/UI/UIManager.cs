@@ -96,6 +96,10 @@ namespace UI
         {
             objectToToggle.SetActive(objectToToggle.activeSelf ? false : true);
         }
+        public void TogglePause()
+        {
+            Pause = Pause ? false : true;
+        }
         public void NextLevel()
         {
             var currentLevel = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
