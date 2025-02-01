@@ -139,111 +139,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2211.w054.n005.210B.p1.210_0
+      name: BG5_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 497
-        height: 640
+        width: 807
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fddd511d928d5894dbe906c86013344c
-      internalID: -1155004603
+      spriteID: f9c5eca75db694b4b86c7deb55f0ea39
+      internalID: -1167897196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2211.w054.n005.210B.p1.210_1
+      name: BG5_1
       rect:
         serializedVersion: 2
-        x: 331
+        x: 707
         y: 0
-        width: 406
-        height: 640
+        width: 774
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2899a3f41be92e640969b6746845aab8
-      internalID: -925187787
+      spriteID: 738a98e71fe65b743868a41ecb2da906
+      internalID: -4218879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2211.w054.n005.210B.p1.210_2
+      name: BG5_2
       rect:
         serializedVersion: 2
-        x: 704
+        x: 1412
         y: 0
-        width: 459
-        height: 640
+        width: 892
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83d0e5f520b41a9429e3023a2b094a13
-      internalID: 1258454578
+      spriteID: 02c19eab9cfecf24b913a88fa2e190f4
+      internalID: 1561505756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2211.w054.n005.210B.p1.210_3
+      name: BG5_3
       rect:
         serializedVersion: 2
-        x: 1108
+        x: 2241
         y: 0
-        width: 428
-        height: 640
+        width: 810
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 090544d7af5d6a843b50aef5b90d00a6
-      internalID: -1833945402
+      spriteID: 51a5fb3246193a342ba630a549073270
+      internalID: 1614323571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2211.w054.n005.210B.p1.210_4
+      name: BG5_4
       rect:
         serializedVersion: 2
-        x: 1490
+        x: 3010
         y: 0
-        width: 430
-        height: 640
+        width: 830
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb56f3a8e34163e44910da6d81b6c748
-      internalID: 1873734145
+      spriteID: 825697509a59b55479fcc0d1d60de14e
+      internalID: -713560673
       vertices: []
       indices: 
       edges: []
@@ -262,11 +262,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      2211.w054.n005.210B.p1.210_0: -1155004603
-      2211.w054.n005.210B.p1.210_1: -925187787
-      2211.w054.n005.210B.p1.210_2: 1258454578
-      2211.w054.n005.210B.p1.210_3: -1833945402
-      2211.w054.n005.210B.p1.210_4: 1873734145
+      BG5_0: -1167897196
+      BG5_1: -4218879
+      BG5_2: 1561505756
+      BG5_3: 1614323571
+      BG5_4: -713560673
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

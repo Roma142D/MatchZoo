@@ -64,6 +64,7 @@ namespace MatchThreeEngine
         private Vector2 _startSwipePosition;
 		private Vector2 _endSwipePosition;
 		
+		private List<Match> _explosionMatches = new List<Match>();
 
         private TileData[,] Matrix
 		{
@@ -140,13 +141,11 @@ namespace MatchThreeEngine
 					{
 						var rightPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, selectedTile, Matrix);
 						Select(GetTile(rightPosition));
-						Debug.Log("Right");
 					}
 					else if (_endSwipePosition.x < _startSwipePosition.x)
 					{
 						var leftPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.LEFT, selectedTile, Matrix);
 						Select(GetTile(leftPosition));
-						Debug.Log("Left");
 					}
 				}
 				else
@@ -155,13 +154,11 @@ namespace MatchThreeEngine
 					{
 						var upPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.UP, selectedTile, Matrix);
 						Select(GetTile(upPosition));
-						Debug.Log("Up");
 					}
 					else if (_endSwipePosition.y < _startSwipePosition.y)
 					{
 						var downPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.DOWN, selectedTile, Matrix);
 						Select(GetTile(downPosition));
-						Debug.Log("Down");
 					}
 				}
 			}
@@ -176,7 +173,8 @@ namespace MatchThreeEngine
 
         private void Start()
 		{
-			Debug.Log(CurrentLevelData.name);
+			//Time.timeScale = 0.5f;
+			
 			_rows = new List<Row>(CurrentLevelData.GenerateBoard(transform));
 			_currentTilesTypes = CurrentLevelData.tilesTypes.ToArray();
 			var levelNumber = (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) + 1);
@@ -420,10 +418,10 @@ namespace MatchThreeEngine
 		
 		private async void Select(Tile tile)
 		{
+			if (!GlobalData.IsTile(tile.Data)) return;
+            
 			var goToOrigin = DOTween.Sequence();
             var highlightSequence = DOTween.Sequence();
-            
-			if (!GlobalData.IsTile(tile.Data)) return;
             
             highlightSequence.Join(tile.icon.transform.DOScale(new Vector3 (1.3f, 1.3f, 1.3f), tweenDuration));
 
@@ -573,7 +571,7 @@ namespace MatchThreeEngine
 					
 					foreach (var tile in explodeTiles)
 					{
-						explodeMatch = tile.Execute(Matrix);
+						_explosionMatches.Add(tile.Execute(Matrix));
 					}
 					excludeList.AddRange(matchedTiles);
 					//explodeMatch = explodeTiles.First().Execute(Matrix);
@@ -603,8 +601,13 @@ namespace MatchThreeEngine
 				                     .AsyncWaitForCompletion();
 
 
-				match = explodeMatch != null ? explodeMatch : TileDataMatrixUtility.FindBestMatch(Matrix);
-						
+				match = TileDataMatrixUtility.FindBestMatch(Matrix);
+				
+				if (_explosionMatches.Count > 0)
+				{
+					match = _explosionMatches.Last();
+					_explosionMatches.RemoveAt(_explosionMatches.Count - 1);					
+				}
 			}
 
 			_isMatching = false;

@@ -139,111 +139,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2212.w054.n005.242B.p1.242_0
+      name: BG3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 447
-        height: 640
+        width: 835
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecfdeb1a64441204abdc87905a812368
-      internalID: -723205401
+      spriteID: be7fd8be0df1c8f4aaabc645cb24371e
+      internalID: -1297191431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2212.w054.n005.242B.p1.242_1
+      name: BG3_1
       rect:
         serializedVersion: 2
-        x: 289
+        x: 698
         y: 0
-        width: 454
-        height: 640
+        width: 788
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f14ae87692abe8648a6d7f741a4c7342
-      internalID: 1129342003
+      spriteID: ca9e926557c63ec479de73a360e522d3
+      internalID: 1185523132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2212.w054.n005.242B.p1.242_2
+      name: BG3_2
       rect:
         serializedVersion: 2
-        x: 705
+        x: 1414
         y: 0
-        width: 458
-        height: 640
+        width: 914
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e26e45c4b656bd84d81600b49af97164
-      internalID: -1545028179
+      spriteID: a430a598d8fe21244ae6f416bf7f0a15
+      internalID: 1325739392
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2212.w054.n005.242B.p1.242_3
+      name: BG3_3
       rect:
         serializedVersion: 2
-        x: 1110
+        x: 2233
         y: 0
-        width: 456
-        height: 640
+        width: 807
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1889c6eec7e1fd04a9ad84dab6d6534b
-      internalID: -2103424880
+      spriteID: 5376c552a80950d41b1c3a3be2b34827
+      internalID: -603214632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2212.w054.n005.242B.p1.242_4
+      name: BG3_4
       rect:
         serializedVersion: 2
-        x: 1442
+        x: 2960
         y: 0
-        width: 478
-        height: 640
+        width: 880
+        height: 1280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15923b3afc00c284691ef1f28ec8a69d
-      internalID: -2128443548
+      spriteID: ad6f8e802804f254bbe9730c07941165
+      internalID: 1404870687
       vertices: []
       indices: 
       edges: []
@@ -262,11 +262,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      2212.w054.n005.242B.p1.242_0: -723205401
-      2212.w054.n005.242B.p1.242_1: 1129342003
-      2212.w054.n005.242B.p1.242_2: -1545028179
-      2212.w054.n005.242B.p1.242_3: -2103424880
-      2212.w054.n005.242B.p1.242_4: -2128443548
+      BG3_0: -1297191431
+      BG3_1: 1185523132
+      BG3_2: 1325739392
+      BG3_3: -603214632
+      BG3_4: 1404870687
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using MatchThreeEngine;
 using Sound;
 using TMPro;
@@ -63,23 +64,26 @@ namespace UI
 
         public void OnLevelComplete(LevelData currentLvel)
         {
+            //TogglePause();
             if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
 
             _levelCompletedTab.LevelCompletTabObject.SetActive(true);
-            _levelCompletedTab.SetStars(inGameData.StarsImages.Count);
+            _levelCompletedTab.SetStars(inGameData.TimerData.StarsImages.Count);
 
             soundManager.PlaySound(GlobalData.AudioClipType.OnWin);
 
-            var onStarsComleted = inGameData.StarsImages.Count;
+            var onStarsComleted = inGameData.TimerData.StarsImages.Count;
             var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
             GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
             PlayerPrefs.Save();
+           
         }
         public void OnGameOver(float num)
         {
             if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
             ToggleObject(_gameOverTab);
             soundManager.PlaySound(GlobalData.AudioClipType.OnLose);
+            TogglePause();
         }
 
         public void ChangeScene(string sceneName)
@@ -109,29 +113,48 @@ namespace UI
         }
         public IEnumerator UITimerCorutine(float timeOnTwoStars, float timeOnThreeStars)
         {
+            var starsLeft = 3;
             var timeLeft = timeOnTwoStars;
+            var normNumber = timeOnTwoStars;
+            //var timerPointOnThreeStars = (timeOnTwoStars - timeOnThreeStars) * 0.5 / timeOnTwoStars;
             
-            var timerPointOnThreeStars = (timeOnTwoStars - timeOnThreeStars) * 0.5 / timeOnTwoStars;
-            
-            while (timeLeft >= 0)
+            while (starsLeft > 0)
             {
                 timeLeft -= Time.smoothDeltaTime;
-                var normalizedTime = Mathf.Clamp((timeLeft / timeOnTwoStars) * 0.5f, 0.0f, 1.0f);
+                var normalizedTime = Mathf.Clamp((timeLeft / normNumber) * 0.5f, 0.0f, 1.0f);
 
-                inGameData.TimerImage.fillAmount = normalizedTime;
+                inGameData.TimerData.TimerImage.fillAmount = normalizedTime;
                 
                 if (Pause) yield return new WaitWhile(() => Pause);
                 
+                /*
                 if (inGameData.TimerImage.fillAmount <= (float)Math.Round(timerPointOnThreeStars, 3) && inGameData.OffStar(2))
                 {
                     //inGameData.OffStar(2);
                 }
-
+                */
+                if (inGameData.TimerData.TimerImage.fillAmount <= 0.0f && inGameData.TimerData.OffStar(2))
+                {
+                    starsLeft--;
+                    timeLeft = normNumber = starsLeft == 2 ? timeOnThreeStars : 0;
+                }
+                else if (inGameData.TimerData.TimerImage.fillAmount <= 0.0f && inGameData.TimerData.OffStar(1))
+                {
+                    starsLeft--;
+                    timeLeft = normNumber = starsLeft == 1 ? timeOnTwoStars - timeOnThreeStars : 0;
+                }
+                else if (inGameData.TimerData.TimerImage.fillAmount <= 0.0f && inGameData.TimerData.OffStar(0))
+                {
+                    starsLeft--;
+                    timeLeft = normNumber = 0;
+                }
                 yield return null;
             }
-            inGameData.OffStar(1);
+            Debug.Log("Game Over");
+            OnGameOver(0);
+            
             TimerCoroutine = null;
-
+            
         }
         public void SetTilesToCollect(List<LevelData.TilesToCollect> tilesToCollect)
         {
@@ -208,18 +231,29 @@ namespace UI
         [Serializable]
         public struct InGameData
         {
+            public TimerData TimerData;
             public TextMeshProUGUI LevelSerialNumber;
-            public Image TimerImage;
-            public List<Image> StarsImages;
-            public Sprite GreyStarSprite;
+            //public Image TimerImage;
+            //public List<Image> StarsImages;
+            //public Sprite GreyStarSprite;
             //public TextMeshProUGUI ScoreMultiplier;
             public TextMeshProUGUI TotalScoreValue;
+            
+        }
+        [Serializable]
+        public struct TimerData
+        {
+            public Image TimerImage;
+            public List<Sprite> TimerSprites;
+            public List<Image> StarsImages;
+            public Sprite GreyStarSprite;
             public bool OffStar(int starSerialNumber)
             {
                 if (starSerialNumber < StarsImages.Count)
                 {
                     StarsImages[starSerialNumber].sprite = GreyStarSprite;
                     StarsImages.RemoveAt(starSerialNumber);
+                    TimerImage.sprite = TimerSprites[starSerialNumber];
                     return true;
                 }
                 else

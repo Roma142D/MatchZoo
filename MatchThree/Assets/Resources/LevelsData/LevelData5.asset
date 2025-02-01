@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelData5
   m_EditorClassIdentifier: 
   levelType: 1
-  background: {fileID: 1093826378, guid: 1c2da3bcb45310c4facaa5f26ef9bdad, type: 3}
+  background: {fileID: -1232107683, guid: ee04c734758da0342aa11d952d2563d4, type: 3}
   _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
   _boardSize: {x: 6, y: 7}
   timeToComplet:
@@ -27,7 +27,7 @@ MonoBehaviour:
   tilesTypes:
   - {fileID: 11400000, guid: e9aa0ef239d5040469fcb06438de51e7, type: 2}
   - {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
-  - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
+  - {fileID: 11400000, guid: 29eb9af04443a9346a5810dc6e0a29e9, type: 2}
   - {fileID: 11400000, guid: eccef0273e4a5df42be4fc716cb5c5fc, type: 2}
   scoreToBeet: 0
   tilesToCollect:

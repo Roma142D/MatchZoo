@@ -2183,7 +2183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9735a2863a398e646b0b835ae07fa73e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f2fc6a14d58830c43a9f2f603e4402b9, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2301,7 +2301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1e952e8a17291a542884aea21d373a58, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2309,7 +2309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 266755614, guid: 1c2da3bcb45310c4facaa5f26ef9bdad, type: 3}
+  m_Sprite: {fileID: -1828278407, guid: 28ca0870273c79c4cbee20996285e743, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2367,6 +2367,17 @@ MonoBehaviour:
     Button: {fileID: 1619424972}
     TipsAmount: {fileID: 1398144304}
   inGameData:
+    TimerData:
+      TimerImage: {fileID: 1072538179}
+      TimerSprites:
+      - {fileID: 21300000, guid: 41531744b1f578a4a9e5dcb46ddb8637, type: 3}
+      - {fileID: 21300000, guid: 0189338863dc5d24698239fc834b6e25, type: 3}
+      - {fileID: 21300000, guid: 9735a2863a398e646b0b835ae07fa73e, type: 3}
+      StarsImages:
+      - {fileID: 612206316}
+      - {fileID: 814140951}
+      - {fileID: 1551967418}
+      GreyStarSprite: {fileID: 21300000, guid: cc3b201bd75e2ea4c89c8588da79aa13, type: 3}
     LevelSerialNumber: {fileID: 966602182}
     TimerImage: {fileID: 1072538179}
     StarsImages:
