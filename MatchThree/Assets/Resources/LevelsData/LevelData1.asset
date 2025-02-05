@@ -32,6 +32,6 @@ MonoBehaviour:
   scoreToBeet: 0
   tilesToCollect:
   - TileType: {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
-    AmountToCollect: 48
+    AmountToCollect: 50
   - TileType: {fileID: 11400000, guid: 29eb9af04443a9346a5810dc6e0a29e9, type: 2}
-    AmountToCollect: 48
+    AmountToCollect: 50

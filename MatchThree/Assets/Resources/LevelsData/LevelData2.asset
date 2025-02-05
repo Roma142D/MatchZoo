@@ -15,19 +15,19 @@ MonoBehaviour:
   levelType: 0
   background: {fileID: 274609461, guid: 28ca0870273c79c4cbee20996285e743, type: 3}
   _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
-  _boardSize: {x: 6, y: 6}
+  _boardSize: {x: 5, y: 6}
   timeToComplet:
     TimerStartingTime: 30
     TwoStars: 90
-    ThreeStars: 60
+    ThreeStars: 30
   _tilesToDisable:
     rows: 6
-    columns: 6
-    values: 000000000000000000000000000000000000000000000000000000000000000000000000
+    columns: 5
+    values: 000000000000000000000000000000000000000000000000000000000000
   tilesTypes:
   - {fileID: 11400000, guid: e9aa0ef239d5040469fcb06438de51e7, type: 2}
   - {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
   - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
   - {fileID: 11400000, guid: eccef0273e4a5df42be4fc716cb5c5fc, type: 2}
-  scoreToBeet: 50
+  scoreToBeet: 100
   tilesToCollect: []

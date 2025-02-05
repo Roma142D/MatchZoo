@@ -19,7 +19,7 @@ MonoBehaviour:
   timeToComplet:
     TimerStartingTime: 25
     TwoStars: 120
-    ThreeStars: 90
+    ThreeStars: 60
   _tilesToDisable:
     rows: 7
     columns: 5
@@ -30,5 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
   - {fileID: 11400000, guid: eccef0273e4a5df42be4fc716cb5c5fc, type: 2}
   - {fileID: 11400000, guid: 38350310bb850754199929fcf4d43373, type: 2}
-  scoreToBeet: 60
+  scoreToBeet: 120
   tilesToCollect: []

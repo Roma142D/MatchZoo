@@ -534,8 +534,6 @@ namespace MatchThreeEngine
 			{
 				var matchedTiles = new List<Tile>();
 
-				Match explodeMatch = null;
-
 				didMatch = true;
 
 				var tiles = excludeList.Count > 0 ? GetTiles(match.Tiles).Except(excludeList).ToArray() : GetTiles(match.Tiles);

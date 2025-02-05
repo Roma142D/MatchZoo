@@ -19,7 +19,7 @@ MonoBehaviour:
   timeToComplet:
     TimerStartingTime: 20
     TwoStars: 210
-    ThreeStars: 180
+    ThreeStars: 120
   _tilesToDisable:
     rows: 6
     columns: 6
@@ -30,12 +30,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1c2c3d4afa4919408c6bcdfd4176430, type: 2}
   - {fileID: 11400000, guid: 3a66d9c2d4d6bab44bc2952171a002c9, type: 2}
   - {fileID: 11400000, guid: 38350310bb850754199929fcf4d43373, type: 2}
-  - {fileID: 11400000, guid: 29eb9af04443a9346a5810dc6e0a29e9, type: 2}
   scoreToBeet: 0
   tilesToCollect:
   - TileType: {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}
-    AmountToCollect: 40
+    AmountToCollect: 80
   - TileType: {fileID: 11400000, guid: 38350310bb850754199929fcf4d43373, type: 2}
-    AmountToCollect: 40
+    AmountToCollect: 80
   - TileType: {fileID: 11400000, guid: 3a66d9c2d4d6bab44bc2952171a002c9, type: 2}
-    AmountToCollect: 40
+    AmountToCollect: 80

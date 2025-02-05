@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,6 +90,7 @@ namespace MatchThreeEngine
 				case TileType.SquareExplosion:
 					_particles.SquareExplosion.Play();
 					UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Explosion);
+
 					for (int i = x - 1; i <= x + 1; i++)
 					{
 						for (int j = y - 1; j <= y + 1; j++)
@@ -100,6 +102,7 @@ namespace MatchThreeEngine
 							}
 						}
 					}
+					horizontalTilesToMatch.Remove(this.Data);
 					match = new Match(Data, horizontalTilesToMatch.ToArray() ,verticalTilesToMatch.ToArray());
 					break;
 			}
