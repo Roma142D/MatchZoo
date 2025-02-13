@@ -18,8 +18,8 @@ MonoBehaviour:
   _boardSize: {x: 7, y: 8}
   timeToComplet:
     TimerStartingTime: 20
-    TwoStars: 120
-    ThreeStars: 60
+    TwoStars: 90
+    ThreeStars: 120
   _tilesToDisable:
     rows: 8
     columns: 7

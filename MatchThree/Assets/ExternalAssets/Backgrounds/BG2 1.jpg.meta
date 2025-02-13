@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2e1f3e1e832684042885c556267500cc
+guid: ca603e0c1d4a72644b5ba8755339d32e
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -186,10 +186,10 @@ TextureImporter:
       name: BG2_2
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 768
-        height: 1280
+        x: 1494
+        y: 151
+        width: 821
+        height: 1370
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

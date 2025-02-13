@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using DG.Tweening;
 using MatchThreeEngine;
 using Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Device;
+using UnityEngine.iOS;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 namespace UI
@@ -20,7 +23,7 @@ namespace UI
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
         [SerializeField] public SettingsTab settingsTab;
-        
+        public StartingScreen startingScreen;
         public Image backgroundImage;
         public SoundManager soundManager;
         public TipButton tipButton;
@@ -29,7 +32,9 @@ namespace UI
         public bool Pause {get; set;}
         public Coroutine TimerCoroutine;
         private AsyncOperation _loadingOperation;
-        private bool _shouldPlayLoadingAnim;
+        private Sequence _loadingSequence;
+        //public bool _shouldPlayLoadingAnim;
+        public bool startTimers;
         //private float _currentMusicTimer;
         //private float currentVolume;
 
@@ -46,13 +51,26 @@ namespace UI
 
             if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE) SetTipsAmount();
         }
-        private void Start()
+        private IEnumerator Start()
         {
-            if (_shouldPlayLoadingAnim)
-            {
-                _loadingScreen.Animator.SetTrigger("EndLoading");
-                //_loadingScreen.LoadingScreenObject.SetActive(false);
-            } 
+            Debug.Log($"{UnityEngine.Device.Screen.currentResolution} + {UnityEngine.Device.Screen.height}");
+                            
+                var loadingSequence = DOTween.Sequence();
+                
+                var posY = (float)UnityEngine.Device.Screen.height;
+                Debug.Log(posY);
+                loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(posY * 0.005f, 1f))
+                                .AppendCallback(() => _loadingScreen.LoadingScreenObject.gameObject.SetActive(false));
+                
+                if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE)
+                {
+                    yield return new WaitUntil(() => startTimers);
+                }
+                
+                yield return loadingSequence.Play().WaitForCompletion();
+                
+                              
+            yield return null;
         }
 
         public void SetTipsAmount()
@@ -88,8 +106,11 @@ namespace UI
 
         public void ChangeScene(string sceneName)
         {
+            _loadingSequence = DOTween.Sequence();
+            //_loadingScreen.LoadingScreenObject.gameObject.transform.position = new Vector3(0, UnityEngine.Device.Screen.height, 0);
+            _loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(0, 1f));
+
             _loadingScreen.LoadingScreenObject.SetActive(true);
-            Instance._loadingScreen.Animator.SetTrigger("StartLoading");
 
             Instance._loadingOperation = SceneManager.LoadSceneAsync(sceneName);
             Instance._loadingOperation.allowSceneActivation = false;
@@ -114,8 +135,8 @@ namespace UI
         public IEnumerator UITimerCorutine(float timeOnTwoStars, float timeOnThreeStars)
         {
             var starsLeft = 3;
-            var timeLeft = timeOnTwoStars;
-            var normNumber = timeOnTwoStars;
+            var timeLeft = timeOnThreeStars;
+            var normNumber = timeOnThreeStars;
             //var timerPointOnThreeStars = (timeOnTwoStars - timeOnThreeStars) * 0.5 / timeOnTwoStars;
             
             while (starsLeft > 0)
@@ -136,12 +157,12 @@ namespace UI
                 if (inGameData.TimerData.TimerImage.fillAmount <= 0.0f && inGameData.TimerData.OffStar(2))
                 {
                     starsLeft--;
-                    timeLeft = normNumber = starsLeft == 2 ? timeOnThreeStars : 0;
+                    timeLeft = normNumber = starsLeft == 2 ? timeOnTwoStars : 0;
                 }
                 else if (inGameData.TimerData.TimerImage.fillAmount <= 0.0f && inGameData.TimerData.OffStar(1))
                 {
                     starsLeft--;
-                    timeLeft = normNumber = starsLeft == 1 ? timeOnTwoStars - timeOnThreeStars : 0;
+                    timeLeft = normNumber = starsLeft == 1 ? Mathf.Abs(timeOnThreeStars - timeOnTwoStars) : 0;
                 }
                 else if (inGameData.TimerData.TimerImage.fillAmount <= 0.0f && inGameData.TimerData.OffStar(0))
                 {
@@ -180,20 +201,14 @@ namespace UI
 
         private IEnumerator OnLoadingSceen()
         {
-            yield return new WaitForSeconds(0.5f);
-            //yield return new WaitUntil(() => _loadingScreen.LoadingImage.IsActive());
-            _shouldPlayLoadingAnim = true;
+            yield return _loadingSequence.Play().WaitForCompletion();
+
             _loadingOperation.allowSceneActivation = true;
             while (_loadingScreen.LoadingImage.fillAmount <= 1)
             {
                 _loadingScreen.LoadingImage.fillAmount = _loadingOperation.progress;
                 yield return new WaitForEndOfFrame();
             }
-        }
-        public void OnAnimationOver()
-        {
-            //_shouldPlayLoadingAnim = true;
-            //_loadingOperation.allowSceneActivation = true;
         }
 
         [Serializable]
@@ -286,6 +301,12 @@ namespace UI
             public GameObject LoadingScreenObject;
             public Animator Animator;
             public Image LoadingImage;
+        }
+        [Serializable]
+        public struct StartingScreen
+        {
+            public GameObject StartingScreenObject;
+            public TextMeshProUGUI StartingScreenText;
         }
     }
 }

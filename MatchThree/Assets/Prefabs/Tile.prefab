@@ -350,6 +350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosionVertical
       objectReference: {fileID: 0}
+    - target: {fileID: 4961203858931785221, guid: 00940d9a14487874dbac95bd36a176ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -376,6 +380,10 @@ PrefabInstance:
     - target: {fileID: 2729439722066641685, guid: f34576fcb77485042a79dabf4654cce7, type: 3}
       propertyPath: m_Name
       value: ExplosionSquare
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729439722066641685, guid: f34576fcb77485042a79dabf4654cce7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4163532835652621108, guid: f34576fcb77485042a79dabf4654cce7, type: 3}
       propertyPath: m_Pivot.x
@@ -499,6 +507,10 @@ PrefabInstance:
     - target: {fileID: 2729439722066641685, guid: 09e6bb8e9beec794f989d5db2e103f91, type: 3}
       propertyPath: m_Name
       value: ExplosionHorizontal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729439722066641685, guid: 09e6bb8e9beec794f989d5db2e103f91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4163532835652621108, guid: 09e6bb8e9beec794f989d5db2e103f91, type: 3}
       propertyPath: m_Pivot.x

@@ -19,7 +19,7 @@ MonoBehaviour:
   timeToComplet:
     TimerStartingTime: 30
     TwoStars: 60
-    ThreeStars: 30
+    ThreeStars: 90
   _tilesToDisable:
     rows: 6
     columns: 5
