@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelData30
   m_EditorClassIdentifier: 
   levelType: 1
-  background: {fileID: -2146096770, guid: ca603e0c1d4a72644b5ba8755339d32e, type: 3}
+  background: {fileID: -5849337832266319206, guid: ca603e0c1d4a72644b5ba8755339d32e, type: 3}
   _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
   _boardSize: {x: 8, y: 9}
   timeToComplet:

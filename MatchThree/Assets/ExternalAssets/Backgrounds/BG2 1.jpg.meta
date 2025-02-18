@@ -3,8 +3,8 @@ guid: ca603e0c1d4a72644b5ba8755339d32e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1184915349838321373
-    second: 18303699_0
+      213: -5849337832266319206
+    second: BG2 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,12 +100,12 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 50
+    textureFormat: -1
     textureCompression: 1
-    compressionQuality: 100
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -139,111 +139,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG2_0
+      name: BG2 1_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1495
         y: 0
-        width: 768
-        height: 1280
+        width: 800
+        height: 1662
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a287408bde6c0984fa2ec2cb32747238
-      internalID: -155807841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG2_1
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 1280
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e5b6ef464dfd2845a80b1b4e30f9571
-      internalID: -25421450
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG2_2
-      rect:
-        serializedVersion: 2
-        x: 1494
-        y: 151
-        width: 821
-        height: 1370
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac7d9de44ee4abe44bc63f26c6c3365d
-      internalID: -2146096770
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG2_3
-      rect:
-        serializedVersion: 2
-        x: 2304
-        y: 0
-        width: 768
-        height: 1280
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df313ef94ddebc94ba9ac991f94bd327
-      internalID: -1304250235
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG2_4
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 768
-        height: 1280
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68e14b610510489428621ff2fb943abd
-      internalID: -1243572725
+      spriteID: a9a33809b3af2dea0800000000000000
+      internalID: -5849337832266319206
       vertices: []
       indices: 
       edges: []
@@ -252,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 007952f3d81c6514f832f4b0918595ff
+    spriteID: 083eb09226516bf4b8b1146a791cbab6
     internalID: 0
     vertices: []
     indices: 
@@ -262,11 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG2_0: -155807841
-      BG2_1: -25421450
-      BG2_2: -2146096770
-      BG2_3: -1304250235
-      BG2_4: -1243572725
+      BG2 1_0: -5849337832266319206
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1553,7 +1553,7 @@ MonoBehaviour:
     LevelSerialNumber: {fileID: 0}
     TotalScoreValue: {fileID: 0}
   tilesToCollectUI: []
-  _shouldPlayLoadingAnim: 1
+  startTimers: 0
 --- !u!82 &244740989
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4182,6 +4182,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 244740990}
+    - target: {fileID: 1163896335910560470, guid: 6907b198131e82043a056e08cfbea3ee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: SFXVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 1537448893851741859, guid: 6907b198131e82043a056e08cfbea3ee, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

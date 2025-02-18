@@ -24,7 +24,7 @@ namespace Sound
             _currentMusicTimer = _musicTimer;
 
             UIManager.Instance.settingsTab.MasterVolumeSlider.onValueChanged.AddListener(ChangeAllSoundsVolume);
-            var soundValue = PlayerPrefs.GetFloat(GlobalData.MASTER_VOLUME, 0f);
+            var soundValue = PlayerPrefs.GetFloat(GlobalData.SFX_VOLUME, 0f);
             UIManager.Instance.settingsTab.MasterVolumeSlider.value = soundValue;
 
             UIManager.Instance.settingsTab.MusicVolumeSlider.onValueChanged.AddListener(ChangeMusicSoundValue);

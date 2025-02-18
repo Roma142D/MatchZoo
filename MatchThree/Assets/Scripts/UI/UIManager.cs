@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using DG.Tweening;
 using MatchThreeEngine;
 using Sound;
@@ -32,11 +31,8 @@ namespace UI
         public Coroutine TimerCoroutine;
         private AsyncOperation _loadingOperation;
         private Sequence _loadingSequence;
-        //public bool _shouldPlayLoadingAnim;
         public bool startTimers;
-        //private float _currentMusicTimer;
-        //private float currentVolume;
-
+        
         private void Awake()
         {
             if (Instance == null)
@@ -52,9 +48,8 @@ namespace UI
         }
         private IEnumerator Start()
         {
-            UnityEngine.Device.Application.targetFrameRate = 60;
-            Debug.Log($"{UnityEngine.Device.Screen.currentResolution} + {UnityEngine.Device.Screen.height}");
-                            
+            UnityEngine.Device.Application.targetFrameRate = 90;
+                                        
                 var loadingSequence = DOTween.Sequence();
                 
                 var posY = (float)UnityEngine.Device.Screen.height;
@@ -107,7 +102,7 @@ namespace UI
         public void ChangeScene(string sceneName)
         {
             _loadingSequence = DOTween.Sequence();
-            //_loadingScreen.LoadingScreenObject.gameObject.transform.position = new Vector3(0, UnityEngine.Device.Screen.height, 0);
+            
             _loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(0, 1f));
 
             _loadingScreen.LoadingScreenObject.SetActive(true);

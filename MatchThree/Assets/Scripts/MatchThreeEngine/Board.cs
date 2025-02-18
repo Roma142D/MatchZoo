@@ -166,7 +166,7 @@ namespace MatchThreeEngine
 			
 			var endSequence = DOTween.Sequence();
 
-			while (number >= 0)
+			while (number > 0)
 			{
 				var countDownSequence = DOTween.Sequence();
 
@@ -175,16 +175,14 @@ namespace MatchThreeEngine
 								.AppendCallback(() => UIManager.Instance.startingScreen.StartingScreenText.SetText(number.ToString()))
 								.Join(UIManager.Instance.startingScreen.StartingScreenText.DOFade(0.5f, tweenDuration))
 								.Join(UIManager.Instance.startingScreen.StartingScreenText.gameObject.transform.DOScale(0.5f, tweenDuration));
-				//UIManager.Instance.startingScreen.StartingScreenText.SetText(number.ToString());
+				
 				yield return countDownSequence.Play().WaitForCompletion();
 
 				number--;
 			}
 			
-			//endSequence.Append(UIManager.Instance.startingScreen.StartingScreenObject.transform.DOScale(0, tweenDuration))
-			//			.Append(UIManager.Instance.startingScreen.StartingScreenText.DOFade(0, tweenDuration));
+			UIManager.Instance.startingScreen.StartingScreenText.gameObject.SetActive(false);
 			
-			//yield return endSequence.Play().WaitForCompletion();
 			UIManager.Instance.startTimers = true;
 		}
         private void StartSwipe(InputAction.CallbackContext context)
@@ -250,6 +248,7 @@ namespace MatchThreeEngine
 
 		private void GetTip()
 		{
+			UIManager.Instance.tipButton.Button.interactable = false;
 			var bestMove = TileDataMatrixUtility.FindBestMove(Matrix);
 
 			if (bestMove != null && GlobalData.UseTip())
@@ -369,7 +368,6 @@ namespace MatchThreeEngine
 			}
 			icons.Clear();
 			
-			//await moveBackSequence.Play().AsyncWaitForCompletion();
 		}
 
 		private void TimerCooldown()
@@ -405,7 +403,7 @@ namespace MatchThreeEngine
 			var goToOrigin = DOTween.Sequence();
             var highlightSequence = DOTween.Sequence();
             
-            highlightSequence.Join(tile.icon.transform.DOScale(new Vector3 (1.3f, 1.3f, 1.3f), tweenDuration));
+			highlightSequence.Join(tile.icon.transform.DOScale(new Vector3(1.3f, 1.3f, 1f), tweenDuration));
 
 			if (_isSwapping || _isMatching || _isShuffling) return;
 
@@ -428,6 +426,7 @@ namespace MatchThreeEngine
 			{
 				goToOrigin.Join(_selection[0].icon.transform.DOScale(Vector3.one, tweenDuration));
 				goToOrigin.Play().Complete();
+				await TryMatchAsync(tile.Execute(Matrix));
 				_selection.Clear();
 			}
 
@@ -447,6 +446,8 @@ namespace MatchThreeEngine
 				matrix = Matrix;
 			}
 
+			goToOrigin.Kill();
+			highlightSequence.Kill();
 			_selection.Clear();
 		}
 
@@ -582,10 +583,11 @@ namespace MatchThreeEngine
 					match = _explosionMatches.Last();
 					_explosionMatches.RemoveAt(_explosionMatches.Count - 1);					
 				}
+				
 			}
 
 			_isMatching = false;
-
+			UIManager.Instance.tipButton.Button.interactable = true;
 			return didMatch;
 		}
 		private Item SetSpecialTileType(MatchType matchType)
