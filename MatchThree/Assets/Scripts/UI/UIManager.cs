@@ -10,7 +10,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Device;
-using UnityEngine.iOS;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 namespace UI
@@ -53,6 +52,7 @@ namespace UI
         }
         private IEnumerator Start()
         {
+            UnityEngine.Device.Application.targetFrameRate = 60;
             Debug.Log($"{UnityEngine.Device.Screen.currentResolution} + {UnityEngine.Device.Screen.height}");
                             
                 var loadingSequence = DOTween.Sequence();
