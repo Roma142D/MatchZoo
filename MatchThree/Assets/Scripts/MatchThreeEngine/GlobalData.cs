@@ -11,7 +11,7 @@ public static class GlobalData
     {
         OnButtonClick, OnTileClick, OnMatch, OnWin, OnLose, Explosion 
     }
-    public enum Direction {UP, DOWN, LEFT, RIGHT}
+    public enum Direction {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
     public const string LAST_PLAYED_LEVEL = "LAST_PLAYED_LEVEL";
     public const string AVAILABLE_TIPS = "AVAILABLE_TIPS";
     public const string IN_GAME_SCENE = "InGame";

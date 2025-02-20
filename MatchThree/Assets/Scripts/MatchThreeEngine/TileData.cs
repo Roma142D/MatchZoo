@@ -1,4 +1,7 @@
-﻿namespace MatchThreeEngine
+﻿using System.Numerics;
+using UnityEngine;
+
+namespace MatchThreeEngine
 {
 	public readonly struct TileData
 	{
@@ -13,6 +16,10 @@
 			Y = y;
 
 			TypeId = typeId;
+		}
+		public Vector2Int GetTilePosition()
+		{
+			return new Vector2Int(X, Y);
 		}
 	}
 }

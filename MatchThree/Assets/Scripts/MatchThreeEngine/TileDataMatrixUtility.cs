@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 //using System.Diagnostics;
 using UnityEngine;
 
@@ -26,6 +28,24 @@ namespace MatchThreeEngine
 			var horizontalConnections = new List<TileData>();
 			var verticalConnections = new List<TileData>();
 
+			/*
+			var rightTilePos = GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, origin, tiles);
+			var bottomTilePos = GetNeighborTileCoordinates(GlobalData.Direction.DOWN, origin, tiles);
+			var rightBottomTilePos = GetNeighborTileCoordinates(GlobalData.Direction.DOWN_RIGHT, origin, tiles);
+			var rightTile = rightTilePos != origin.GetTilePosition() ? tiles[rightTilePos.x, rightTilePos.y] : new TileData(-1, -1, -1);
+			var bottomTile = bottomTilePos != origin.GetTilePosition() ? tiles[bottomTilePos.x, bottomTilePos.y] : new TileData(-1, -1, -1);
+			var rightBottomTile = rightBottomTilePos != origin.GetTilePosition() ? tiles[rightBottomTilePos.x, rightBottomTilePos.y] : new TileData(-1, -1, -1);
+			if (rightTile.TypeId == origin.TypeId && bottomTile.TypeId == origin.TypeId && rightBottomTile.TypeId == origin.TypeId)
+			{
+				horizontalConnections.Add(rightTile);
+				//horizontalConnections.Add(origin);
+				verticalConnections.Add(bottomTile);
+				verticalConnections.Add(rightBottomTile);
+				Debug.Log("Square match");
+				return (horizontalConnections.ToArray(), verticalConnections.ToArray());
+			}
+			*/
+
 			for (var x = originX - 1; x >= 0; x--)
 			{
 				var other = tiles[x, originY];
@@ -51,6 +71,15 @@ namespace MatchThreeEngine
 				if (other.TypeId != origin.TypeId) break;
 
 				verticalConnections.Add(other);
+				if (horizontalConnections.Count == 1 && verticalConnections.Count == 1)
+				{
+					//Debug.Log("Horizontal connections: " + horizontalConnections.Count);
+					//Debug.Log("Vertical connections: " + verticalConnections.Count);
+					var tile = GetNeighborTileCoordinates(GlobalData.Direction.UP, horizontalConnections[0], tiles) != horizontalConnections[0].GetTilePosition() 
+							? tiles[horizontalConnections.First().X, horizontalConnections.First().Y - 1] : new TileData(-1, -1, 0);
+					if (tile.TypeId == origin.TypeId) verticalConnections.Add(tile);
+					return (horizontalConnections.ToArray(), verticalConnections.ToArray());
+				}
 			}
 
 			for (var y = originY + 1; y < height; y++)
@@ -60,7 +89,19 @@ namespace MatchThreeEngine
 				if (other.TypeId != origin.TypeId) break;
 
 				verticalConnections.Add(other);
+				if (horizontalConnections.Count == 1 && verticalConnections.Count == 1)
+				{
+					//Debug.Log("Horizontal connections: " + horizontalConnections.Count);
+					//Debug.Log("Vertical connections: " + verticalConnections.Count);
+					var tile = GetNeighborTileCoordinates(GlobalData.Direction.DOWN, horizontalConnections.First(), tiles) != horizontalConnections.First().GetTilePosition() 
+							? tiles[horizontalConnections.First().X, horizontalConnections.First().Y + 1] : new TileData(0, 0, 0);
+					if (tile.TypeId == origin.TypeId) verticalConnections.Add(tile);
+					return (horizontalConnections.ToArray(), verticalConnections.ToArray());
+				}
 			}
+					
+			//Debug.Log("Horizontal connections: " + horizontalConnections.Count);
+			//Debug.Log("Vertical connections: " + verticalConnections.Count);
 
 			return (horizontalConnections.ToArray(), verticalConnections.ToArray());
 		}
@@ -123,7 +164,7 @@ namespace MatchThreeEngine
 			_ => (0, 0),
 		};
 
-		public static Vector2Int GetNeighborTileCoordinates(GlobalData.Direction direction, Tile originTile, TileData[,] matrix)
+		public static Vector2Int GetNeighborTileCoordinates(GlobalData.Direction direction, TileData originTile, TileData[,] matrix)
 		{
 			var width = matrix.GetLength(0);
 			var height = matrix.GetLength(1);
@@ -131,31 +172,55 @@ namespace MatchThreeEngine
 			switch (direction)
 			{
 				case GlobalData.Direction.UP:
-					if (originTile.y > 0)
+					if (originTile.Y > 0)
 					{
-						return new Vector2Int(originTile.x, originTile.y - 1);
+						return new Vector2Int(originTile.X, originTile.Y - 1);
 					}
 					break;
 				case GlobalData.Direction.DOWN:
-					if (originTile.y < height - 1)
+					if (originTile.Y < height - 1)
 					{
-						return new Vector2Int(originTile.x, originTile.y + 1);
+						return new Vector2Int(originTile.X, originTile.Y + 1);
 					}
 					break;
 				case GlobalData.Direction.LEFT:	
-					if (originTile.x > 0)
+					if (originTile.X > 0)
 					{
-						return new Vector2Int(originTile.x - 1, originTile.y);
+						return new Vector2Int(originTile.X - 1, originTile.Y);
 					}
 					break;
 				case GlobalData.Direction.RIGHT:
-					if (originTile.x < width - 1)
+					if (originTile.X < width - 1)
 					{
-						return new Vector2Int(originTile.x + 1, originTile.y);
+						return new Vector2Int(originTile.X + 1, originTile.Y);
+					}
+					break;
+				case GlobalData.Direction.UP_LEFT:
+					if (originTile.X > 0 && originTile.Y > 0)
+					{
+						return new Vector2Int(originTile.X - 1, originTile.Y - 1);
+					}
+					break;
+				case GlobalData.Direction.UP_RIGHT:
+					if (originTile.X < width - 1 && originTile.Y > 0)
+					{
+						return new Vector2Int(originTile.X + 1, originTile.Y - 1);
+					}
+					break;
+				case GlobalData.Direction.DOWN_LEFT:
+					if (originTile.X > 0 && originTile.Y < height - 1)
+					{
+						return new Vector2Int(originTile.X - 1, originTile.Y + 1);
+					}
+					break;
+				case GlobalData.Direction.DOWN_RIGHT:
+					if (originTile.X < width - 1 && originTile.Y < height - 1)
+					{
+						return new Vector2Int(originTile.X + 1, originTile.Y + 1);
 					}
 					break;
 			}
-			return new Vector2Int(originTile.x, originTile.y);
+			return new Vector2Int(originTile.X, originTile.Y);
 		}
 		public static Move FindMove(TileData[,] tiles)
 		{

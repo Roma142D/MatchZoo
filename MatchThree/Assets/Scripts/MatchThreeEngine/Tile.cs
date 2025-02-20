@@ -18,6 +18,8 @@ namespace MatchThreeEngine
 		public Button button;
 
 		[SerializeField] private Item _type;
+        private int originX;
+        private int originY;
 
 		public Item Type
 		{

@@ -48,7 +48,7 @@ namespace UI
         }
         private IEnumerator Start()
         {
-            UnityEngine.Device.Application.targetFrameRate = 90;
+            UnityEngine.Device.Application.targetFrameRate = 60;
                                         
                 var loadingSequence = DOTween.Sequence();
                 

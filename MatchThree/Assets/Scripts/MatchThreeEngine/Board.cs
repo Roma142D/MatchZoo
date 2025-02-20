@@ -46,6 +46,7 @@ namespace MatchThreeEngine
 		private bool _isSwapping;
 		private bool _isMatching;
 		private bool _isShuffling;
+		private bool _isSwiping;
 		
 		private float _currentScore;
 		private float _totalTime;
@@ -187,7 +188,9 @@ namespace MatchThreeEngine
 		}
         private void StartSwipe(InputAction.CallbackContext context)
         {
-			if (UIManager.Instance.Pause) return;
+			if (UIManager.Instance.Pause || _isSwapping || _isMatching || _isShuffling || _isSwiping) return;
+			Debug.Log("StartSwipe");
+			_isSwiping = true;
 
 			if(_startTimer == false) StartCoroutine(StartCountDown());
  			
@@ -207,10 +210,12 @@ namespace MatchThreeEngine
 				var tile = startResults.First(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
 				Select(tile);
 			}
+			Debug.Log("EndStartSwipe");
         }
 
         public void SwipeTile(InputAction.CallbackContext context)
         {
+			Debug.Log("SwipeTile");
 			_endSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
 			var swipeVector = _endSwipePosition - _startSwipePosition;
@@ -221,12 +226,12 @@ namespace MatchThreeEngine
 				{
 					if (_endSwipePosition.x > _startSwipePosition.x)
 					{
-						var rightPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, selectedTile, Matrix);
+						var rightPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, selectedTile.Data, Matrix);
 						Select(GetTile(rightPosition));
 					}
 					else if (_endSwipePosition.x < _startSwipePosition.x)
 					{
-						var leftPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.LEFT, selectedTile, Matrix);
+						var leftPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.LEFT, selectedTile.Data, Matrix);
 						Select(GetTile(leftPosition));
 					}
 				}
@@ -234,21 +239,24 @@ namespace MatchThreeEngine
 				{
 					if (_endSwipePosition.y > _startSwipePosition.y)
 					{
-						var upPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.UP, selectedTile, Matrix);
+						var upPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.UP, selectedTile.Data, Matrix);
 						Select(GetTile(upPosition));
 					}
 					else if (_endSwipePosition.y < _startSwipePosition.y)
 					{
-						var downPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.DOWN, selectedTile, Matrix);
+						var downPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.DOWN, selectedTile.Data, Matrix);
 						Select(GetTile(downPosition));
 					}
 				}
 			}
+			Debug.Log("EndSwipeTile");
+			_isSwiping = false;
 		}
 
 		private void GetTip()
 		{
-			UIManager.Instance.tipButton.Button.interactable = false;
+			if (_isMatching || _isSwapping || _isShuffling) return;
+			//UIManager.Instance.tipButton.Button.interactable = false;
 			var bestMove = TileDataMatrixUtility.FindBestMove(Matrix);
 
 			if (bestMove != null && GlobalData.UseTip())
@@ -439,7 +447,8 @@ namespace MatchThreeEngine
 
 			var matrix = Matrix;
 
-			while (TileDataMatrixUtility.FindBestMove(matrix) == null || TileDataMatrixUtility.FindBestMatch(matrix) != null)
+			
+			while (TileDataMatrixUtility.FindBestMove(matrix) == null || TileDataMatrixUtility.FindBestMatch(matrix) != null) 
 			{			
 				if (!_isShuffling) Shuffle();
 
@@ -593,6 +602,7 @@ namespace MatchThreeEngine
 		private Item SetSpecialTileType(MatchType matchType)
 		{
 			Item tileItem;
+			
 			switch (matchType)
 			{
 				case MatchType.Horizontal :
@@ -603,6 +613,9 @@ namespace MatchThreeEngine
 					break;
 				case MatchType.BothDirections :
 					tileItem = _specialTilesTypes.First(tileItem => tileItem.tileType == TileType.SquareExplosion);
+					break;
+				case MatchType.Square :
+					tileItem = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
 					break;
                 default : tileItem = _currentTilesTypes[Random.Range(0, _currentTilesTypes.Length)];
 					break;

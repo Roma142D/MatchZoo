@@ -98,8 +98,8 @@ namespace Sound
         {
             switch (groupeName)
             {
-                case GlobalData.MASTER_VOLUME :
-                    if (_audioMixer.GetFloat(GlobalData.MASTER_VOLUME, out currentVolume))
+                case GlobalData.SFX_VOLUME :
+                    if (_audioMixer.GetFloat(GlobalData.SFX_VOLUME, out currentVolume))
                     {
                         if (currentVolume > -60f)
                         {
@@ -141,12 +141,12 @@ namespace Sound
         public void ChangeAllSoundsVolume(float value)
         {
             //var value = _settingsTab.MasterVolumeSlider.value;
-            _audioMixer.SetFloat(GlobalData.MASTER_VOLUME, value);
+            _audioMixer.SetFloat(GlobalData.SFX_VOLUME, value);
 
             UIManager.Instance.settingsTab.MasterSoundButtonImage.sprite = value <= -60f ? UIManager.Instance.settingsTab.SoundOffSprite 
                                                                                         : UIManager.Instance.settingsTab.SoundOnSprite;
             
-            PlayerPrefs.SetFloat(GlobalData.MASTER_VOLUME, value);
+            PlayerPrefs.SetFloat(GlobalData.SFX_VOLUME, value);
             PlayerPrefs.Save();
         }
         public void ChangeMusicSoundValue(float value)
