@@ -88,6 +88,7 @@ namespace UI
             var onStarsComleted = inGameData.TimerData.StarsImages.Count;
             var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
             GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
+            GlobalData.AddAvailableTips(1);
             PlayerPrefs.Save();
            
         }

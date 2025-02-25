@@ -101,10 +101,10 @@ namespace Sound
                 case GlobalData.SFX_VOLUME :
                     if (_audioMixer.GetFloat(GlobalData.SFX_VOLUME, out currentVolume))
                     {
-                        if (currentVolume > -60f)
+                        if (currentVolume > -80f)
                         {
-                            ChangeAllSoundsVolume(-60f);
-                            UIManager.Instance.settingsTab.MasterVolumeSlider.value = -60f;
+                            ChangeAllSoundsVolume(-80f);
+                            UIManager.Instance.settingsTab.MasterVolumeSlider.value = -80f;
                             //_settingsTab.MasterSoundButtonImage.sprite = _settingsTab.SoundOffSprite;
                         }
                         else
@@ -120,10 +120,10 @@ namespace Sound
                 case GlobalData.MUSIC_VOLUME :
                     if (_audioMixer.GetFloat(GlobalData.MUSIC_VOLUME, out currentVolume))
                     {
-                        if (currentVolume > -60f)
+                        if (currentVolume > -80f)
                         {
-                            ChangeMusicSoundValue(-60f);
-                            UIManager.Instance.settingsTab.MusicVolumeSlider.value = -60f;
+                            ChangeMusicSoundValue(-80f);
+                            UIManager.Instance.settingsTab.MusicVolumeSlider.value = -80f;
                             //_settingsTab.MusicButtonImage.sprite = _settingsTab.MusicOffSprite;
                         }
                         else
@@ -143,7 +143,7 @@ namespace Sound
             //var value = _settingsTab.MasterVolumeSlider.value;
             _audioMixer.SetFloat(GlobalData.SFX_VOLUME, value);
 
-            UIManager.Instance.settingsTab.MasterSoundButtonImage.sprite = value <= -60f ? UIManager.Instance.settingsTab.SoundOffSprite 
+            UIManager.Instance.settingsTab.MasterSoundButtonImage.sprite = value <= -80f ? UIManager.Instance.settingsTab.SoundOffSprite 
                                                                                         : UIManager.Instance.settingsTab.SoundOnSprite;
             
             PlayerPrefs.SetFloat(GlobalData.SFX_VOLUME, value);
@@ -153,7 +153,7 @@ namespace Sound
         {
             _audioMixer.SetFloat(GlobalData.MUSIC_VOLUME, value);
 
-            UIManager.Instance.settingsTab.MusicButtonImage.sprite = value <= -60f ? UIManager.Instance.settingsTab.MusicOffSprite 
+            UIManager.Instance.settingsTab.MusicButtonImage.sprite = value <= -80f ? UIManager.Instance.settingsTab.MusicOffSprite 
                                                                                 : UIManager.Instance.settingsTab.MusicOnSprite;
             
             PlayerPrefs.SetFloat(GlobalData.MUSIC_VOLUME, value);

@@ -46,7 +46,6 @@ namespace MatchThreeEngine
 		private bool _isSwapping;
 		private bool _isMatching;
 		private bool _isShuffling;
-		private bool _isSwiping;
 		
 		private float _currentScore;
 		private float _totalTime;
@@ -188,10 +187,8 @@ namespace MatchThreeEngine
 		}
         private void StartSwipe(InputAction.CallbackContext context)
         {
-			if (UIManager.Instance.Pause || _isSwapping || _isMatching || _isShuffling || _isSwiping) return;
-			Debug.Log("StartSwipe");
-			_isSwiping = true;
-
+			if (UIManager.Instance.Pause || _isSwapping || _isMatching || _isShuffling) return;
+			
 			if(_startTimer == false) StartCoroutine(StartCountDown());
  			
             _startSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
@@ -210,12 +207,10 @@ namespace MatchThreeEngine
 				var tile = startResults.First(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
 				Select(tile);
 			}
-			Debug.Log("EndStartSwipe");
-        }
+		}
 
         public void SwipeTile(InputAction.CallbackContext context)
         {
-			Debug.Log("SwipeTile");
 			_endSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
 			var swipeVector = _endSwipePosition - _startSwipePosition;
@@ -249,8 +244,6 @@ namespace MatchThreeEngine
 					}
 				}
 			}
-			Debug.Log("EndSwipeTile");
-			_isSwiping = false;
 		}
 
 		private void GetTip()
@@ -316,7 +309,7 @@ namespace MatchThreeEngine
 					UIManager.Instance.Pause = true;
 					startTimer = false;
 					yield return new WaitUntil(() => !_isMatching);
-					GlobalData.AddAvailableTips(2);
+					//GlobalData.AddAvailableTips(1);
 					
 					OnLevelComplet?.Invoke(CurrentLevelData);
 					}
@@ -324,7 +317,7 @@ namespace MatchThreeEngine
 				case LevelType.CollectTiles:
 					UIManager.Instance.Pause = true;
 					yield return new WaitUntil(() => !_isMatching);
-					GlobalData.AddAvailableTips(2);
+					//GlobalData.AddAvailableTips(1);
 					
 					OnLevelComplet?.Invoke(CurrentLevelData);
 				break;

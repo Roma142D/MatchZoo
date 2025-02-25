@@ -15,15 +15,15 @@ MonoBehaviour:
   levelType: 0
   background: {fileID: -155807841, guid: 2e1f3e1e832684042885c556267500cc, type: 3}
   _rowPrefab: {fileID: 4424387233479925161, guid: afb462d3a7733d347a22d25f72c89e6e, type: 3}
-  _boardSize: {x: 5, y: 7}
+  _boardSize: {x: 6, y: 7}
   timeToComplet:
     TimerStartingTime: 25
     TwoStars: 90
     ThreeStars: 120
   _tilesToDisable:
     rows: 7
-    columns: 5
-    values: 0000010000000000000000000000000100000001000000000000000000000000010000
+    columns: 6
+    values: 000001010000000000000000000000000000010000000001000000000000000000000000000001010000
   tilesTypes:
   - {fileID: 11400000, guid: e9aa0ef239d5040469fcb06438de51e7, type: 2}
   - {fileID: 11400000, guid: 6561dbfb6d54e4d4bad6fbc9099e7084, type: 2}

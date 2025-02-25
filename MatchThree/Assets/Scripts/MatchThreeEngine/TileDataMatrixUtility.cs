@@ -89,6 +89,7 @@ namespace MatchThreeEngine
 				if (other.TypeId != origin.TypeId) break;
 
 				verticalConnections.Add(other);
+				
 				if (horizontalConnections.Count == 1 && verticalConnections.Count == 1)
 				{
 					//Debug.Log("Horizontal connections: " + horizontalConnections.Count);
@@ -98,6 +99,7 @@ namespace MatchThreeEngine
 					if (tile.TypeId == origin.TypeId) verticalConnections.Add(tile);
 					return (horizontalConnections.ToArray(), verticalConnections.ToArray());
 				}
+				
 			}
 					
 			//Debug.Log("Horizontal connections: " + horizontalConnections.Count);
@@ -284,7 +286,7 @@ namespace MatchThreeEngine
 
 						var match = FindBestMatch(tilesCopy);
 
-						if ((match != null && match.Score > bestScore 
+						if ((match != null && match.Score > bestScore && match.MatchType != MatchType.Square
 							&& GlobalData.IsTile(tile1) && GlobalData.IsTile(tile2)) || (GlobalData.IsSpecialTile(tile1) && GlobalData.IsTile(tile2) && 1 > bestScore))
 						{
 							bestMove = new Move(x, y, x2, y2);
