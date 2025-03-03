@@ -9,7 +9,7 @@ public static class GlobalData
     [Serializable]
     public enum AudioClipType
     {
-        OnButtonClick, OnTileClick, OnMatch, OnWin, OnLose, Explosion 
+        OnButtonClick, OnTileClick, OnMatch, OnWin, OnLose, Explosion, Swipe 
     }
     public enum Direction {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
     public const string LAST_PLAYED_LEVEL = "LAST_PLAYED_LEVEL";

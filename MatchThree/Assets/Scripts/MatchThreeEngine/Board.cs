@@ -206,6 +206,7 @@ namespace MatchThreeEngine
 			{
 				var tile = startResults.First(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
 				Select(tile);
+				UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Swipe);
 			}
 		}
 
@@ -217,6 +218,7 @@ namespace MatchThreeEngine
 			var selectedTile = _selection.FirstOrDefault();
 			if (swipeVector.magnitude > _minSwipeLength && selectedTile != null)
 			{
+				//UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Swipe);
 				if (Math.Abs(swipeVector.x) > Math.Abs(swipeVector.y))
 				{
 					if (_endSwipePosition.x > _startSwipePosition.x)

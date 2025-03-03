@@ -1670,12 +1670,13 @@ MonoBehaviour:
   _BGMusicClips:
   - {fileID: 8300000, guid: 475f4837af487ce4a9e68bb227455e4c, type: 3}
   _sfxClips:
-    OnUIButtonClickSound: {fileID: 8300000, guid: 61919765eb9995b448c65fd7524c1bda, type: 3}
+    OnUIButtonClickSound: {fileID: 8300000, guid: ff3182539363f8548bc0183f3229e784, type: 3}
     OnTileClickSound: {fileID: 8300000, guid: 950c29315c7c63346846eee8031c3b71, type: 3}
     OnMatchSound: {fileID: 8300000, guid: ff3182539363f8548bc0183f3229e784, type: 3}
     ExplosionSound: {fileID: 0}
     OnWinSound: {fileID: 0}
     OnLoseSound: {fileID: 0}
+    SwipeSound: {fileID: 0}
 --- !u!1001 &281085386
 PrefabInstance:
   m_ObjectHideFlags: 0

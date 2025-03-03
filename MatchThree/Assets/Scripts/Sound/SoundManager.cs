@@ -74,9 +74,13 @@ namespace Sound
                     _audioSourceSFX.clip = _sfxClips.OnTileClickSound;
                     _audioSourceSFX.Play();
                     break;
+                case GlobalData.AudioClipType.Swipe :
+                    //_audioSourceSFX.clip = _sfxClips.SwipeSound;
+                    _audioSourceSFX.PlayOneShot(_sfxClips.SwipeSound);
+                    break;
                 case GlobalData.AudioClipType.OnMatch :
-                    _audioSourceSFX.clip = _sfxClips.OnMatchSound;
-                    _audioSourceSFX.Play();
+                    //_audioSourceSFX.clip = _sfxClips.OnMatchSound;
+                    _audioSourceSFX.PlayOneShot(_sfxClips.OnMatchSound);
                     break;
                 case GlobalData.AudioClipType.OnWin :
                     //_audioSourceMusic.clip = _sfxClips.OnWinSound;
@@ -169,6 +173,7 @@ namespace Sound
             public AudioClip ExplosionSound;
             public AudioClip OnWinSound;
             public AudioClip OnLoseSound;
+            public AudioClip SwipeSound;
         }
     }
 }

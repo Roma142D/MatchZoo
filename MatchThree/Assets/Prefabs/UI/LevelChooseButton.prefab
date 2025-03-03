@@ -338,15 +338,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 0
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -586,7 +588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94ecf94a49740ec4793fd49bfa3b1000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd3d99f40ca2fcb4fae66d9394dd0b4a, type: 3}
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -625,9 +627,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 5df92a613fbe6b14a93c9848884e754d, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: b5bb0eb03c7a8ee46a7a6ccae5644e4c, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 94ecf94a49740ec4793fd49bfa3b1000, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: af1a9b561b707e64c9cf0e33f3a4b662, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: cc2fece297a4baa428f72e09e674c0fe, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: bd3d99f40ca2fcb4fae66d9394dd0b4a, type: 3}
     m_DisabledSprite: {fileID: 21300000, guid: 2ead2ebdc770fcd429756b90570d8089, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
