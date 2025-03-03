@@ -105,6 +105,8 @@ namespace MatchThreeEngine
 			_currentTilesTypes = CurrentLevelData.tilesTypes.ToArray();
 			var levelNumber = (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) + 1);
 			UIManager.Instance.inGameData.LevelSerialNumber.SetText($"lvl {levelNumber}");
+
+			UIManager.Instance.LevelsAmount = _levelsData.LevelsData.Count;
 			
 			UIManager.Instance.backgroundImage.sprite = CurrentLevelData.background != null ? CurrentLevelData.background 
 																							: UIManager.Instance.backgroundImage.sprite;

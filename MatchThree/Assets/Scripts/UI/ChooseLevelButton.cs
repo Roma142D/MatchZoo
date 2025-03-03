@@ -17,6 +17,7 @@ public class ChooseLevelButton : MonoBehaviour
     [SerializeField] private Image[] _starsImages;
     [SerializeField] private Sprite _goldStarSprite;
     private int _levelSerialNumber;
+    //public int LevelsAmount => _allLevelsData.LevelsData.Count;
     private void Start()
     {
         _levelSerialNumber = _allLevelsData.LevelsData.IndexOf(_levelData);

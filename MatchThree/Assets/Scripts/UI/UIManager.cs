@@ -21,6 +21,10 @@ namespace UI
         [SerializeField] private LevelCompletedTab _levelCompletedTab;
         [SerializeField] private GameObject _gameOverTab;
         [SerializeField] public SettingsTab settingsTab;
+
+        [SerializeField] private TextMeshProUGUI _text3;
+        [SerializeField] private Button _chooseLevelsButton;
+        
         public StartingScreen startingScreen;
         public Image backgroundImage;
         public SoundManager soundManager;
@@ -28,10 +32,11 @@ namespace UI
         public InGameData inGameData;
         public List<TilesToCollectUI> tilesToCollectUI;
         public bool Pause {get; set;}
+        public bool startTimers {get; set;}
+        public int LevelsAmount {get; set;}
         public Coroutine TimerCoroutine;
         private AsyncOperation _loadingOperation;
         private Sequence _loadingSequence;
-        public bool startTimers;
         
         private void Awake()
         {
@@ -50,21 +55,34 @@ namespace UI
         {
             UnityEngine.Device.Application.targetFrameRate = 60;
                                         
-                var loadingSequence = DOTween.Sequence();
+            var loadingSequence = DOTween.Sequence();
+            
+            var posY = (float)UnityEngine.Device.Screen.height;
+            
+            loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(posY * 0.005f, 1f))
+                            .AppendCallback(() => _loadingScreen.LoadingScreenObject.gameObject.SetActive(false));
+            
+            if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE)
+            {
+                yield return new WaitUntil(() => startTimers);
+            }
+            else if (SceneManager.GetActiveScene().name == GlobalData.ALL_LEVELS_COMPLETED_SCENE)
+            {
+                LevelsAmount = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL) + 1;
                 
-                var posY = (float)UnityEngine.Device.Screen.height;
-                Debug.Log(posY);
-                loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(posY * 0.005f, 1f))
-                                .AppendCallback(() => _loadingScreen.LoadingScreenObject.gameObject.SetActive(false));
-                
-                if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE)
+                for (int i = 0; i < LevelsAmount; i++)
                 {
-                    yield return new WaitUntil(() => startTimers);
+                    if (GlobalData.IsLevelComplet(i) < 3)
+                    {
+                        _text3.SetText("you can try to complete levels with 3 stars");
+                        _chooseLevelsButton.gameObject.SetActive(true);
+                        break;
+                    }
                 }
-                
-                yield return loadingSequence.Play().WaitForCompletion();
-                
-                              
+            }
+            
+            yield return loadingSequence.Play().WaitForCompletion();
+
             yield return null;
         }
 
@@ -124,9 +142,17 @@ namespace UI
         public void NextLevel()
         {
             var currentLevel = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
-            PlayerPrefs.SetInt(GlobalData.LAST_PLAYED_LEVEL, currentLevel + 1);
-            PlayerPrefs.Save();
-            ChangeScene(GlobalData.IN_GAME_SCENE);
+            
+            if (currentLevel == LevelsAmount - 1)
+            {
+                ChangeScene(GlobalData.ALL_LEVELS_COMPLETED_SCENE);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(GlobalData.LAST_PLAYED_LEVEL, currentLevel + 1);
+                PlayerPrefs.Save();
+                ChangeScene(GlobalData.IN_GAME_SCENE);
+            }
         }
         public IEnumerator UITimerCorutine(float timeOnTwoStars, float timeOnThreeStars)
         {
@@ -244,10 +270,6 @@ namespace UI
         {
             public TimerData TimerData;
             public TextMeshProUGUI LevelSerialNumber;
-            //public Image TimerImage;
-            //public List<Image> StarsImages;
-            //public Sprite GreyStarSprite;
-            //public TextMeshProUGUI ScoreMultiplier;
             public TextMeshProUGUI TotalScoreValue;
             
         }
@@ -286,16 +308,9 @@ namespace UI
             public TextMeshProUGUI TilesAmount;
 		}
         [Serializable]
-        public struct BackgroundMusic
-        {
-            public AudioSource AudioSource;
-            public AudioClip[] AudioClips;     
-        }
-        [Serializable]
         public struct LoadingScreen
         {
             public GameObject LoadingScreenObject;
-            public Animator Animator;
             public Image LoadingImage;
         }
         [Serializable]
