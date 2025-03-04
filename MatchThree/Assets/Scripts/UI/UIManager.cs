@@ -226,10 +226,13 @@ namespace UI
             yield return _loadingSequence.Play().WaitForCompletion();
 
             _loadingOperation.allowSceneActivation = true;
-            while (_loadingScreen.LoadingImage.fillAmount <= 1)
+            if (_loadingScreen.LoadingImage != null)
             {
-                _loadingScreen.LoadingImage.fillAmount = _loadingOperation.progress;
-                yield return new WaitForEndOfFrame();
+                while (_loadingScreen.LoadingImage.fillAmount <= 1)
+                {
+                    _loadingScreen.LoadingImage.fillAmount = _loadingOperation.progress;
+                    yield return new WaitForEndOfFrame();
+                }
             }
         }
 
