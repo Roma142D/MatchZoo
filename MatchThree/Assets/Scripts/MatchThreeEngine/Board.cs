@@ -63,8 +63,9 @@ namespace MatchThreeEngine
 		private PointerEventData _pointerEventData;
         private Vector2 _startSwipePosition;
 		private Vector2 _endSwipePosition;
+		private Tile _firstTileToSwipe;
 
-		private bool _startTimer = false;
+		private bool _startTimer = true;
 		
 		private List<Match> _explosionMatches = new List<Match>();
 
@@ -113,7 +114,6 @@ namespace MatchThreeEngine
 
 			_scoreMultiplier = 1;
 
-			Debug.Log($"height{_rows.Count} width{_rows[0].tiles.Count} \n{_currentTilesTypes.Length}");
 			for (var y = 0; y < _rows.Count; y++)
 			{
 				//_rows.Max(row => row.tiles.Count)
@@ -164,6 +164,7 @@ namespace MatchThreeEngine
 		}
 		private IEnumerator StartCountDown()
 		{
+			UIManager.Instance.Pause = true;
 			var number = 3;
 			
 			var endSequence = DOTween.Sequence();
@@ -184,14 +185,16 @@ namespace MatchThreeEngine
 			}
 			
 			UIManager.Instance.startingScreen.StartingScreenText.gameObject.SetActive(false);
-			
+			UIManager.Instance.Pause = false;
 			UIManager.Instance.startTimers = true;
+
+			_startTimer = false;
 		}
         private void StartSwipe(InputAction.CallbackContext context)
         {
 			if (UIManager.Instance.Pause || _isSwapping || _isMatching || _isShuffling) return;
-			
-			if(_startTimer == false) StartCoroutine(StartCountDown());
+					
+			if(_startTimer) StartCoroutine(StartCountDown());
  			
             _startSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
@@ -207,30 +210,35 @@ namespace MatchThreeEngine
 			if (startResults.Any(result => result.gameObject.TryGetComponent(out Tile tile)))
 			{
 				var tile = startResults.First(result => result.gameObject.TryGetComponent(out Tile tile)).gameObject.GetComponent<Tile>();
-				Select(tile);
+				_firstTileToSwipe = tile;
+
+				if (GlobalData.IsSpecialTile(tile.Data)) Select(tile);
+				
 				UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Swipe);
 			}
 		}
 
         public void SwipeTile(InputAction.CallbackContext context)
         {
+			if (UIManager.Instance.Pause || _isSwapping || _isMatching || _isShuffling) return;
 			_endSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
-			var swipeVector = _endSwipePosition - _startSwipePosition;
 			var selectedTile = _selection.FirstOrDefault();
-			if (swipeVector.magnitude > _minSwipeLength && selectedTile != null)
+			var swipeVector = _endSwipePosition - _startSwipePosition;
+			if (swipeVector.magnitude > _minSwipeLength && _firstTileToSwipe != null)
 			{
+				if (selectedTile == null) Select(_firstTileToSwipe);
 				//UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Swipe);
 				if (Math.Abs(swipeVector.x) > Math.Abs(swipeVector.y))
 				{
 					if (_endSwipePosition.x > _startSwipePosition.x)
 					{
-						var rightPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, selectedTile.Data, Matrix);
+						var rightPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, _firstTileToSwipe.Data, Matrix);
 						Select(GetTile(rightPosition));
 					}
 					else if (_endSwipePosition.x < _startSwipePosition.x)
 					{
-						var leftPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.LEFT, selectedTile.Data, Matrix);
+						var leftPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.LEFT, _firstTileToSwipe.Data, Matrix);
 						Select(GetTile(leftPosition));
 					}
 				}
@@ -238,12 +246,12 @@ namespace MatchThreeEngine
 				{
 					if (_endSwipePosition.y > _startSwipePosition.y)
 					{
-						var upPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.UP, selectedTile.Data, Matrix);
+						var upPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.UP, _firstTileToSwipe.Data, Matrix);
 						Select(GetTile(upPosition));
 					}
 					else if (_endSwipePosition.y < _startSwipePosition.y)
 					{
-						var downPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.DOWN, selectedTile.Data, Matrix);
+						var downPosition = TileDataMatrixUtility.GetNeighborTileCoordinates(GlobalData.Direction.DOWN, _firstTileToSwipe.Data, Matrix);
 						Select(GetTile(downPosition));
 					}
 				}

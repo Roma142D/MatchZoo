@@ -108,7 +108,7 @@ namespace UI
             GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
             GlobalData.AddAvailableTips(1);
             PlayerPrefs.Save();
-           
+            DOTween.KillAll();
         }
         public void OnGameOver(float num)
         {
@@ -116,6 +116,7 @@ namespace UI
             ToggleObject(_gameOverTab);
             soundManager.PlaySound(GlobalData.AudioClipType.OnLose);
             TogglePause();
+            DOTween.KillAll();
         }
 
         public void ChangeScene(string sceneName)
@@ -203,7 +204,6 @@ namespace UI
         {
             inGameData.TotalScoreValue.gameObject.SetActive(false);
             var parent = tilesToCollectUI[0].TileIcon.gameObject.GetComponentInParent<LayoutElement>();
-            Debug.Log($"Parent: {parent.name}");
             parent.ignoreLayout = false;
             parent.gameObject.SetActive(true);
             for (int i = 0; i < tilesToCollect.Count; i++)
