@@ -22,6 +22,7 @@ namespace MatchThreeEngine
 		[SerializeField] private Slider _slider;
 		//[SerializeField] private Image _handleImage;
 		[SerializeField] private float tweenDuration;
+		public float TweenDuration => tweenDuration;
 
 		//[SerializeField] private Transform swappingOverlay;
 
@@ -36,7 +37,14 @@ namespace MatchThreeEngine
 		{
 			get
 			{
-				return _levelsData.LevelsData[PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0)];
+				if (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) >= 0)
+				{
+					return _levelsData.LevelsData[PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0)];
+				}
+				else
+				{
+					return _levelsData.TutorialLevelData;
+				}
 			}
 		}
 
@@ -46,6 +54,7 @@ namespace MatchThreeEngine
 		private bool _isSwapping;
 		private bool _isMatching;
 		private bool _isShuffling;
+		public bool Swiping;
 		
 		private float _currentScore;
 		private float _totalTime;
@@ -69,7 +78,7 @@ namespace MatchThreeEngine
 		
 		private List<Match> _explosionMatches = new List<Match>();
 
-        private TileData[,] Matrix
+        public TileData[,] Matrix
 		{
 			get
 			{
@@ -196,6 +205,8 @@ namespace MatchThreeEngine
 					
 			if(_startTimer) StartCoroutine(StartCountDown());
  			
+			
+
             _startSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
 			
@@ -227,6 +238,8 @@ namespace MatchThreeEngine
 			var swipeVector = _endSwipePosition - _startSwipePosition;
 			if (swipeVector.magnitude > _minSwipeLength && _firstTileToSwipe != null)
 			{
+				Swiping = true;
+
 				if (selectedTile == null) Select(_firstTileToSwipe);
 				//UIManager.Instance.soundManager.PlaySound(GlobalData.AudioClipType.Swipe);
 				if (Math.Abs(swipeVector.x) > Math.Abs(swipeVector.y))
@@ -395,8 +408,8 @@ namespace MatchThreeEngine
 				OnGameOver.Invoke(TotalScore);
 			}
 		}
-		private Tile GetTile(int x, int y) => _rows[y].tiles[x];
-		private Tile GetTile(Vector2Int coordinates) => GetTile(coordinates.x, coordinates.y);
+		public Tile GetTile(int x, int y) => _rows[y].tiles[x];
+		public Tile GetTile(Vector2Int coordinates) => GetTile(coordinates.x, coordinates.y);
 		
 		private Tile[] GetTiles(IList<TileData> tileData)
 		{

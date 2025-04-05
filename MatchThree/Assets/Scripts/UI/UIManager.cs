@@ -62,7 +62,7 @@ namespace UI
             loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(posY * 0.005f, 1f))
                             .AppendCallback(() => _loadingScreen.LoadingScreenObject.gameObject.SetActive(false));
             
-            if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE)
+            if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE || SceneManager.GetActiveScene().name == GlobalData.TUTORIAL_SCENE)
             {
                 yield return new WaitUntil(() => startTimers);
             }

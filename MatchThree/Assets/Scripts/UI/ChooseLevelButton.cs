@@ -20,7 +20,8 @@ public class ChooseLevelButton : MonoBehaviour
     //public int LevelsAmount => _allLevelsData.LevelsData.Count;
     private void Start()
     {
-        _levelSerialNumber = _allLevelsData.LevelsData.IndexOf(_levelData);
+        _levelSerialNumber = _levelData.name == "TutorialLevelData" ? -1 : _allLevelsData.LevelsData.IndexOf(_levelData);
+        
         _levelNumberText.SetText((_allLevelsData.LevelsData.IndexOf(_levelData) + 1).ToString());
         
         var onStarsComleted = GlobalData.IsLevelComplet(_levelSerialNumber);
@@ -46,6 +47,6 @@ public class ChooseLevelButton : MonoBehaviour
     {
         PlayerPrefs.SetInt(GlobalData.LAST_PLAYED_LEVEL, _levelSerialNumber);
         Debug.Log(_levelSerialNumber);
-        UIManager.Instance.ChangeScene(GlobalData.IN_GAME_SCENE);
+        UIManager.Instance.ChangeScene(_levelSerialNumber < 0 ? GlobalData.TUTORIAL_SCENE : GlobalData.IN_GAME_SCENE);
     }
 }

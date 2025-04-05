@@ -7,5 +7,6 @@ namespace MatchThreeEngine
     public class AllLvelsData : ScriptableObject
     {
         public List<LevelData> LevelsData;
+        public LevelData TutorialLevelData;
     }
 }

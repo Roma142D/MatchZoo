@@ -33,7 +33,7 @@ namespace MatchThreeEngine
         //public int OnStarsComleted;
         
 
-        public List<Row> GenerateBoard(Transform parent)
+        public virtual List<Row> GenerateBoard(Transform parent)
         {
             var rowsList = new List<Row>();
             for (int y = 0; y < _boardSize.y; y++)
