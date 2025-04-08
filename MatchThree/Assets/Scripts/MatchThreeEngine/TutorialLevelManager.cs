@@ -50,5 +50,10 @@ namespace MatchThreeEngine
             }
                                        
         }
+
+        private void OnDisable()
+        {
+            DOTween.KillAll(true);
+        }
     }
 }
