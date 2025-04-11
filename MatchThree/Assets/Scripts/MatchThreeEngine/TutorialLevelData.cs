@@ -6,5 +6,4 @@ using System.Collections.Generic;
 public class TutorialLevelData : LevelData
 {
     [SerializeField] private GameObject _tutorialWelcomePrefab;
-
 }

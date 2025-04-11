@@ -13,6 +13,7 @@ public static class GlobalData
     }
     public enum Direction {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
     public const string LAST_PLAYED_LEVEL = "LAST_PLAYED_LEVEL";
+    public const string TUTORIAL_STEP = "TUTORIAL_STEP";
     public const string AVAILABLE_TIPS = "AVAILABLE_TIPS";
     public const string IN_GAME_SCENE = "InGame";
     public const string ALL_LEVELS_COMPLETED_SCENE = "AllLevelsCompleted";

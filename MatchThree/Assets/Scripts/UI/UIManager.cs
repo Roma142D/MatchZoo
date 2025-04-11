@@ -95,20 +95,34 @@ namespace UI
 
         public void OnLevelComplete(LevelData currentLvel)
         {
-            //TogglePause();
-            if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
+            Debug.Log(SceneManager.GetActiveScene().name == GlobalData.TUTORIAL_SCENE ? "Tutorial" : "Level");
+            Debug.Log("TutorialStep" + PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP));
+            if (SceneManager.GetActiveScene().name == GlobalData.TUTORIAL_SCENE && PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP) <= 3)
+            {
+                if(_loadingOperation == null)
+                {
+                    if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
+                    DOTween.KillAll();
+                    ChangeScene(GlobalData.TUTORIAL_SCENE);
+                }
+            }
+            else
+            {
+                //TogglePause();
+                if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
 
-            _levelCompletedTab.LevelCompletTabObject.SetActive(true);
-            _levelCompletedTab.SetStars(inGameData.TimerData.StarsImages.Count);
+                _levelCompletedTab.LevelCompletTabObject.SetActive(true);
+                _levelCompletedTab.SetStars(inGameData.TimerData.StarsImages.Count);
 
-            soundManager.PlaySound(GlobalData.AudioClipType.OnWin);
+                soundManager.PlaySound(GlobalData.AudioClipType.OnWin);
 
-            var onStarsComleted = inGameData.TimerData.StarsImages.Count;
-            var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
-            GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
-            GlobalData.AddAvailableTips(1);
-            PlayerPrefs.Save();
-            DOTween.KillAll();
+                var onStarsComleted = inGameData.TimerData.StarsImages.Count;
+                var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
+                GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
+                GlobalData.AddAvailableTips(1);
+                PlayerPrefs.Save();
+                DOTween.KillAll();
+            }
         }
         public void OnGameOver(float num)
         {
