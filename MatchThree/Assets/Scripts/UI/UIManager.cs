@@ -99,12 +99,11 @@ namespace UI
             Debug.Log("TutorialStep" + PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP));
             if (SceneManager.GetActiveScene().name == GlobalData.TUTORIAL_SCENE && PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP) <= 3)
             {
-                if(_loadingOperation == null)
-                {
-                    if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
-                    DOTween.KillAll();
-                    ChangeScene(GlobalData.TUTORIAL_SCENE);
-                }
+                if (TimerCoroutine != null) StopCoroutine(TimerCoroutine);
+                DOTween.KillAll();
+                GlobalData.AddAvailableTips(1);
+                PlayerPrefs.Save();
+                ChangeScene(GlobalData.TUTORIAL_SCENE);
             }
             else
             {
@@ -135,16 +134,19 @@ namespace UI
 
         public void ChangeScene(string sceneName)
         {
-            _loadingSequence = DOTween.Sequence();
-            
-            _loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(0, 1f));
+            if (_loadingOperation == null)
+            {
+                _loadingSequence = DOTween.Sequence();
+                
+                _loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(0, 1f));
 
-            _loadingScreen.LoadingScreenObject.SetActive(true);
+                _loadingScreen.LoadingScreenObject.SetActive(true);
 
-            Instance._loadingOperation = SceneManager.LoadSceneAsync(sceneName);
-            Instance._loadingOperation.allowSceneActivation = false;
+                Instance._loadingOperation = sceneName == GlobalData.IN_GAME_SCENE ? CheckIsTutorCompleted() : SceneManager.LoadSceneAsync(sceneName);
+                Instance._loadingOperation.allowSceneActivation = false;
 
-            StartCoroutine(OnLoadingSceen());
+                StartCoroutine(OnLoadingSceen());
+            }
         }
         public void ToggleObject(GameObject objectToToggle)
         {
@@ -153,6 +155,11 @@ namespace UI
         public void TogglePause()
         {
             Pause = Pause ? false : true;
+        }
+        private AsyncOperation CheckIsTutorCompleted()
+        {
+            return PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP) < 5 ? SceneManager.LoadSceneAsync(GlobalData.TUTORIAL_SCENE) 
+                                                                    : SceneManager.LoadSceneAsync(GlobalData.IN_GAME_SCENE);
         }
         public void NextLevel()
         {

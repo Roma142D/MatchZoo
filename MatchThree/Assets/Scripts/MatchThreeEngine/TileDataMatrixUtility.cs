@@ -28,24 +28,7 @@ namespace MatchThreeEngine
 			var horizontalConnections = new List<TileData>();
 			var verticalConnections = new List<TileData>();
 
-			/*
-			var rightTilePos = GetNeighborTileCoordinates(GlobalData.Direction.RIGHT, origin, tiles);
-			var bottomTilePos = GetNeighborTileCoordinates(GlobalData.Direction.DOWN, origin, tiles);
-			var rightBottomTilePos = GetNeighborTileCoordinates(GlobalData.Direction.DOWN_RIGHT, origin, tiles);
-			var rightTile = rightTilePos != origin.GetTilePosition() ? tiles[rightTilePos.x, rightTilePos.y] : new TileData(-1, -1, -1);
-			var bottomTile = bottomTilePos != origin.GetTilePosition() ? tiles[bottomTilePos.x, bottomTilePos.y] : new TileData(-1, -1, -1);
-			var rightBottomTile = rightBottomTilePos != origin.GetTilePosition() ? tiles[rightBottomTilePos.x, rightBottomTilePos.y] : new TileData(-1, -1, -1);
-			if (rightTile.TypeId == origin.TypeId && bottomTile.TypeId == origin.TypeId && rightBottomTile.TypeId == origin.TypeId)
-			{
-				horizontalConnections.Add(rightTile);
-				//horizontalConnections.Add(origin);
-				verticalConnections.Add(bottomTile);
-				verticalConnections.Add(rightBottomTile);
-				Debug.Log("Square match");
-				return (horizontalConnections.ToArray(), verticalConnections.ToArray());
-			}
-			*/
-
+			
 			for (var x = originX - 1; x >= 0; x--)
 			{
 				var other = tiles[x, originY];

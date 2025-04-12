@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UI;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
@@ -37,13 +39,18 @@ namespace MatchThreeEngine
 		{
 			get
 			{
-				if (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) >= 0)
+				if (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) >= 0 &&
+					PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP) > 4)
 				{
 					return _levelsData.LevelsData[PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0)];
 				}
-				else
+				else if (SceneManager.GetActiveScene().name == GlobalData.TUTORIAL_SCENE)
 				{
 					return _levelsData.TutorialLevelData;
+				}
+				else
+				{
+					return _levelsData.LevelsData[0];
 				}
 			}
 		}
@@ -113,7 +120,7 @@ namespace MatchThreeEngine
 			
 			_rows = new List<Row>(CurrentLevelData.GenerateBoard(transform));
 			_currentTilesTypes = CurrentLevelData.tilesTypes.ToArray();
-			var levelNumber = (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) + 1);
+			var levelNumber = CurrentLevelData == _levelsData.TutorialLevelData ? 0 :(PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) + 1);
 			UIManager.Instance.inGameData.LevelSerialNumber.SetText($"lvl {levelNumber}");
 	
 			UIManager.Instance.LevelsAmount = _levelsData.LevelsData.Count;
@@ -203,10 +210,8 @@ namespace MatchThreeEngine
         {
 			if (UIManager.Instance.Pause || _isSwapping || _isMatching || _isShuffling) return;
 					
-			if(_startTimer) StartCoroutine(StartCountDown());
- 			
-			
-
+			if(_startTimer) StartCoroutine(StartCountDown());			
+		
             _startSwipePosition = _inputControler.Touchscreen.Swipe.ReadValue<Vector2>();
 			
 			
