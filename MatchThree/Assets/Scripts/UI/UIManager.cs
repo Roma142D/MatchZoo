@@ -49,7 +49,8 @@ namespace UI
                 Destroy(gameObject);
             }
 
-            if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE) SetTipsAmount();
+            if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE 
+                || SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE) SetTipsAmount();
         }
         private IEnumerator Start()
         {
@@ -115,11 +116,14 @@ namespace UI
 
                 soundManager.PlaySound(GlobalData.AudioClipType.OnWin);
 
-                var onStarsComleted = inGameData.TimerData.StarsImages.Count;
-                var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
-                GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
-                GlobalData.AddAvailableTips(1);
-                PlayerPrefs.Save();
+                if (SceneManager.GetActiveScene().name != GlobalData.TUTORIAL_SCENE)
+                {
+                    var onStarsComleted = inGameData.TimerData.StarsImages.Count;
+                    var levelNumber = PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL);
+                    GlobalData.OnLevelComplet(levelNumber, onStarsComleted);
+                    GlobalData.AddAvailableTips(1);
+                    PlayerPrefs.Save();
+                }
                 DOTween.KillAll();
             }
         }
@@ -168,6 +172,12 @@ namespace UI
             if (currentLevel == LevelsAmount - 1)
             {
                 ChangeScene(GlobalData.ALL_LEVELS_COMPLETED_SCENE);
+            }
+            else if (SceneManager.GetActiveScene().name == GlobalData.TUTORIAL_SCENE)
+            {
+                PlayerPrefs.SetInt(GlobalData.LAST_PLAYED_LEVEL, currentLevel);
+                PlayerPrefs.Save();
+                ChangeScene(GlobalData.IN_GAME_SCENE);
             }
             else
             {

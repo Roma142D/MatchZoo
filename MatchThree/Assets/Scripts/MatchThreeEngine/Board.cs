@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UI;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -39,8 +38,7 @@ namespace MatchThreeEngine
 		{
 			get
 			{
-				if (PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0) >= 0 &&
-					PlayerPrefs.GetInt(GlobalData.TUTORIAL_STEP) > 4)
+				if (SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE)
 				{
 					return _levelsData.LevelsData[PlayerPrefs.GetInt(GlobalData.LAST_PLAYED_LEVEL, 0)];
 				}
@@ -331,17 +329,18 @@ namespace MatchThreeEngine
 
 		private IEnumerator CheckScore()
 		{
+			Debug.Log(CurrentLevelData.levelType);
 			switch (CurrentLevelData.levelType)
 			{
 				case LevelType.BeatTime:
 					if (_currentScore >= _slider.maxValue)
 					{
-					UIManager.Instance.Pause = true;
-					startTimer = false;
-					yield return new WaitUntil(() => !_isMatching);
-					//GlobalData.AddAvailableTips(1);
-					
-					OnLevelComplet?.Invoke(CurrentLevelData);
+						UIManager.Instance.Pause = true;
+						startTimer = false;
+						yield return new WaitUntil(() => !_isMatching);
+						//GlobalData.AddAvailableTips(1);
+						
+						OnLevelComplet?.Invoke(CurrentLevelData);
 					}
 				break;
 				case LevelType.CollectTiles:

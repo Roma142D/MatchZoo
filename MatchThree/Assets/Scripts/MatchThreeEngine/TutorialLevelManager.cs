@@ -92,77 +92,9 @@ namespace MatchThreeEngine
             //SetTutorialStep(_tutorialStep += 1);
         }
         
-        private IEnumerator TimerTutorCoroutine()
-        {
-            UIManager.Instance.Pause = true;
-
-            TabAnimation(_tutorialLevelData.TimerTutorTab);
-            
-            StartCoroutine(ArrowAnimation(_tutorialLevelData.TimerTutorArrow));
-            
-            yield return new WaitUntil(() => UIManager.Instance.Pause == false);
-            //SetTutorialStep(_tutorialStep += 1);
-            _tutorialLevelData.TimerTutorTab.SetActive(false);
-        }
-
-        private IEnumerator LevelGoalsTutorCoroutineOne()
-        {
-            yield return new WaitForSeconds(2f);
-
-            UIManager.Instance.Pause = true;
-
-            TabAnimation(_tutorialLevelData.LevelGoalsTutorTabOne);
-            
-            StartCoroutine(ArrowAnimation(_tutorialLevelData.LevelGoalsTutorArrowOne));
-            
-            yield return new WaitUntil(() => UIManager.Instance.Pause == false);
-            //SetTutorialStep(_tutorialStep += 1);
-            _tutorialLevelData.LevelGoalsTutorTabOne.SetActive(false);
-        }
-        private IEnumerator LevelGoalsTutorCoroutineTwo()
-        {
-            yield return new WaitForSeconds(2f);
-
-            UIManager.Instance.Pause = true;
-
-            TabAnimation(_tutorialLevelData.LevelGoalsTutorTabTwo);
-            
-            StartCoroutine(ArrowAnimation(_tutorialLevelData.LevelGoalsTutorArrowTwo));
-            
-            yield return new WaitUntil(() => UIManager.Instance.Pause == false);
-            //SetTutorialStep(_tutorialStep += 1);
-            _tutorialLevelData.LevelGoalsTutorTabTwo.SetActive(false);
-        }
-        private IEnumerator HintTutorCoroutine()
-        {
-            yield return new WaitForSeconds(2f);
-
-            UIManager.Instance.Pause = true;
-
-            TabAnimation(_tutorialLevelData.HintTutorTab);
-            
-            StartCoroutine(ArrowAnimation(_tutorialLevelData.HintTutorArrow));
-            
-            yield return new WaitUntil(() => UIManager.Instance.Pause == false);
-            //SetTutorialStep(_tutorialStep += 1);
-            _tutorialLevelData.HintTutorTab.SetActive(false);
-        }
-        private IEnumerator SpecialTilesTutorCoroutine()
-        {
-            yield return new WaitForSeconds(2f);
-
-            UIManager.Instance.Pause = true;
-
-            TabAnimation(_tutorialLevelData.SpecialTilesTutorTab);
-            
-            yield return new WaitUntil(() => UIManager.Instance.Pause == false);
-            //SetTutorialStep(_tutorialStep += 1);
-            _tutorialLevelData.SpecialTilesTutorTab.SetActive(false);
-        }
-
         private IEnumerator PlayTutorStep(int step)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.25f);
             UIManager.Instance.Pause = true;
             var tab = _tutorialLevelData.GetTabByStep(step);
             var arrow = _tutorialLevelData.GetArrowByStep(step);
