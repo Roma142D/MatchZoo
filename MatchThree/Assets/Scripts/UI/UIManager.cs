@@ -7,7 +7,6 @@ using MatchThreeEngine;
 using Sound;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -37,6 +36,7 @@ namespace UI
         public Coroutine TimerCoroutine;
         private AsyncOperation _loadingOperation;
         private Sequence _loadingSequence;
+        private string _privacyPolicyURL = "https://docs.google.com/document/d/1OnepghS9LPwhyJRCjtwQIowtcrkxBD8fQ0b8MQIaaS0/edit?usp=sharing";
         
         private void Awake()
         {
@@ -54,11 +54,11 @@ namespace UI
         }
         private IEnumerator Start()
         {
-            UnityEngine.Device.Application.targetFrameRate = 60;
+            UnityEngine.Application.targetFrameRate = 90;
                                         
             var loadingSequence = DOTween.Sequence();
             
-            var posY = (float)UnityEngine.Device.Screen.height;
+            var posY = (float)UnityEngine.Screen.height;
             
             loadingSequence.Join(_loadingScreen.LoadingScreenObject.gameObject.transform.DOMoveY(posY * 0.005f, 1f))
                             .AppendCallback(() => _loadingScreen.LoadingScreenObject.gameObject.SetActive(false));
@@ -266,7 +266,10 @@ namespace UI
                 }
             }
         }
-
+        public void OpenPrivacyPolicy()
+        {
+            UnityEngine.Application.OpenURL(_privacyPolicyURL);
+        }
         [Serializable]
         public struct LevelCompletedTab
         {
@@ -283,7 +286,7 @@ namespace UI
                     starsParticles.startDelay = i;
                 }
             }
-        }
+        }       
         [Serializable] 
         public struct SettingsTab
         {
