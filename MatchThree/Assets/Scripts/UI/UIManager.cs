@@ -36,10 +36,11 @@ namespace UI
         public Coroutine TimerCoroutine;
         private AsyncOperation _loadingOperation;
         private Sequence _loadingSequence;
-        private string _privacyPolicyURL = "https://docs.google.com/document/d/1OnepghS9LPwhyJRCjtwQIowtcrkxBD8fQ0b8MQIaaS0/edit?usp=sharing";
-        
+                
         private void Awake()
         {
+            UnityEngine.Application.targetFrameRate = 90;
+
             if (Instance == null)
             {
                 Instance = this;
@@ -53,9 +54,7 @@ namespace UI
                 || SceneManager.GetActiveScene().name == GlobalData.IN_GAME_SCENE) SetTipsAmount();
         }
         private IEnumerator Start()
-        {
-            UnityEngine.Application.targetFrameRate = 90;
-                                        
+        {                                       
             var loadingSequence = DOTween.Sequence();
             
             var posY = (float)UnityEngine.Screen.height;
@@ -268,8 +267,17 @@ namespace UI
         }
         public void OpenPrivacyPolicy()
         {
-            UnityEngine.Application.OpenURL(_privacyPolicyURL);
+            UnityEngine.Application.OpenURL(GlobalData.PRIVACY_POLICY_URL);
         }
+        public void OpenKenneyURL()
+        {
+            UnityEngine.Application.OpenURL(GlobalData.KENNEY_URL);
+        }
+        public void OpenMixKitURL()
+        {
+            UnityEngine.Application.OpenURL(GlobalData.MIXKIT_URL);
+        }
+
         [Serializable]
         public struct LevelCompletedTab
         {

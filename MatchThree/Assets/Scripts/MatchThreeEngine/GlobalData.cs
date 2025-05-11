@@ -21,6 +21,9 @@ public static class GlobalData
     public const string MASTER_VOLUME = "MasterVolume";
     public const string MUSIC_VOLUME = "BGMusicVolume";
     public const string SFX_VOLUME = "SFXVolume";
+    public const string PRIVACY_POLICY_URL = "https://docs.google.com/document/d/1OnepghS9LPwhyJRCjtwQIowtcrkxBD8fQ0b8MQIaaS0/edit?usp=sharing";
+    public const string KENNEY_URL = "https://kenney.nl";
+    public const string MIXKIT_URL = "https://mixkit.co/";
     
     public static void OnLevelComplet(int levelNumber, int onStarsComplet)
     {
